@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Page Layout</title>
+<style>
+    html, body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #282929;
+    }
+
+    .full-page-container {
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+        color: white;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: #1e1e1e;
+        background-image: 
+            linear-gradient(to right, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+
+    .header-container {
+        position: absolute;
+        top: 10px;
+        left: 170px;
+        right: 50px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background: rgba(0,0,0,0.7);
+        padding: 10px;
+        border-radius: 12px;
+        color: white;
+        z-index: 15;
+        box-sizing: border-box;
+        gap: 20px;
+    }
+
+    .header-container img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        object-fit: cover;
+    }
+
+    .header-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+        gap: 10px;
+    }
+
+    .header-info .name {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .header-info .role {
+        font-size: 16px;
+        color: #ccc;
+    }
+
+    .header-info .email {
+        font-size: 16px;
+        color: #ccc;
+    }
+
+    .header-info .location {
+        font-size: 16px;
+        color: #ccc
+    }
+
+    .x-axis {
+        position: absolute;
+        height: 2px;
+        right: 30px;
+        top: 199px;
+        left: 0;
+        background-color: rgba(255, 2555, 255, 0.7);
+        z-index: 10;
+    }
+
+    .x-axis::after {
+        content: '';
+        position: absolute;
+        right: -6px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 6px solid transparent;
+        border-left-color: rgba(255,255,255,0.7);
+    }
+
+    .x-axis::before {
+        content: 'x';
+        position: absolute;
+        right: -12px;
+        top: -50px;
+        transform: translateY(150%);
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .y-axis {
+        position: absolute;
+        width: 2px;
+        bottom: 20px;
+        left: 159px;
+        top: 0px;
+        background-color: rgba(255,255,255,0.7);
+        z-index: 10;
+    }
+
+    .y-axis::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 6px solid transparent;
+        border-top-color: rgba(255,255,255,0.7);
+    }
+
+    .y-axis::before {
+        content: 'y';
+        position: absolute;
+        bottom: -12px;
+        right: 1px;
+        transform: translateX(-150%);
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .x-tick, .y-tick {
+        position: absolute;
+        color: white;
+        font-size: 12px;
+        font-family: monospace;
+        z-index: 11;
+    }
+
+    .x-tick {
+        width: 8px;
+        text-align: center;
+    }
+
+    .y-tick {
+        width: 25px;
+        text-align: right;
+        padding-right: 4px;
+    }
+
+    .x-tick::before {
+        content: '|';
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .y-tick::after {
+        content: '';
+        position: absolute;
+        right: -4px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 8px;
+        height: 1px;
+        background-color: white;
+    }
+
+    .zero-label {
+        position: absolute;
+        top: 200px;
+        left: 144px;
+        transform: translate(-50%, 50%);
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        z-index: 12;
+    }
+
+    .content {
+        margin-top: 190px;
+        margin-left: 150px;
+        margin-right: 30px;
+        background: rgba(0,0,0,0.7);
+        padding: 25px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 25px;
+        box-sizing: border-box;
+        z-index: 15;
+        color: white;
+    }
+
+    .content-section h2 {
+        margin: 0 0 10px;
+        text-align: left;
+        font-size: 22px;
+    }
+
+    .content-section p,
+    .content-section ul {
+        text-align: left;
+        margin: 0;
+        padding-left: 15px;
+    }
+
+    .content-section ul {
+        list-style: square;
+    }
+
+    .content-section:first-of-type p {
+        text-align: justify;
+    }
+
+    .social-link {
+        color: #4fa2ff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .social-link:hover {
+        text-decoration: underline;
+    }
+
+    h1 {
+        margin: 0 0 20px 0;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .project-card {
+        background: rgba(255,255,255,0.1);
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        transition: transform 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+        text-align: left;
+        color: white;
+        display: block;
+        max-width: 100%;
+        text-decoration: none;
+    }
+
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.7);
+    }
+
+    .project-card h3 {
+        margin: 0 0 10px 0;
+    }
+
+    .project-card p {
+        margin: 0;
+    }
+
+    .content-section:nth-of-type(7) .project-card {
+        margin-bottom: 20px;
+    }
+
+    .content-section:nth-of-type(7) .project-card:last-child {
+        margin-bottom: 0;
+    }
+
+    #popupOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    #popupBox {
+        background: #1e1e1e;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        width: 300px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.8);
+    }
+
+    #popupBox h3 {
+        margin-bottom: 20px;
+        color: white;
+    }
+
+    .popup-btn {
+        display: block;
+        width: 90%;
+        margin: 10px auto;
+        padding: 12px;
+        background: #ccc;
+        color: #1e1e1e;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+
+    .popup-btn:hover {
+        background: #2978d9;
+    }
+
+    #closePopup {
+        margin-top: 10px;
+        cursor: pointer;
+        color: #ccc;
+    }
+
+    #closePopup:hover {
+        color: white;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    .social-icons a img {
+        width: 32px;
+        height: 32px;
+        filter: invert(100%);
+        transition: transform 0.2s;
+    }
+
+    .social-icons a:hover img {
+        transform: scale(1.2);
+    }
+</style>
+</head>
+<body>
+
+<div class="full-page-container">
+    <div class="x-axis"></div>
+    <div class="y-axis"></div>
+    <div class="zero-label">0</div>
+    <div class="header-container">
+        <img src="scatter_photo_black_white.png" alt="Profile Photo">
+        <div class="header-info">
+            <div class="name">Gabriel Alves</div>
+            <div class="role">Data Scientist Aspirant</div>
+            <div class="email">gabrielda2.work@gmail.com</div>
+            <div class="location">Portugal</div>
+        </div>
+    </div>
+    <div class="content">
+        <section class="content-section">
+            <h2>About Me</h2>
+            <p>As a recent Informatics Engineering graduate, I have a strong foundation in programming and logical problem-solving.
+                My passion for data is backed by proven, hands-on experience in Python and SQL, demonstrated through many projects.
+                My expertise is validated by the Data Scientist Professional and Data Analyst Professional certifications from DataCamp.
+                I enjoy turning raw data into meaningful stories that support decision-making, and I'm always eager to learn more. My portfolio showcases my ability to solve business problems and deliver data-driven solutions. I'm actively seeking an internship or a junior role where I can grow as a Data Analyst or a Data Scientist.</p>
+        </section>
+        <section class="content-section">
+            <h2>Education</h2>
+            <p>Bachelor Degree in Informatic Engineering at ESTG-IPVC (Instituto Politécnico de Viana do Castelo)</p>
+        </section>
+        <section class="content-section">
+            <h2>Certifications</h2>
+            <ul>
+                <li><a href="Certifications/DS0025480056297.pdf" target="_blank" class="social-link">Data Scientist</a></li>
+                <li><a href="Certifications/DA0022758646289.pdf" target="_blank" class="social-link">Data Analyst</a></li>
+                <li><a href="Certifications/PDA0014701873545.pdf" target="_blank" class="social-link">Python Data Associate</a></li>
+                <li><a href="Certifications/SQA0013838684885.pdf" target="_blank" class="social-link">SQL Associate</a></li>
+                <li><a href="Certifications/AIF0020617151051.pdf" target="_blank" class="social-link">AI Fundamentals</a></li>
+                <li><a href="Certifications/DL0032660560639.pdf" target="_blank" class="social-link">Data Literacy</a></li>
+                <li><a href="Certifications/DSA0014659208749.pdf" target="_blank" class="social-link">Data Scientist Associate</a></li>
+                <li><a href="Certifications/DAA0012885715328.pdf" target="_blank" class="social-link">Data Analyst Associate</a></li>
+        </section>
+        <section class="content-section">
+            <h2>Soft Skills</h2>
+            <ul>
+                <li>Critical Thinking / Problem Solving</li>
+                <li>Analytical Mindset / Data-Driven Thinking</li>
+                <li>Attention to Detail</li>
+                <li>Curiosity & Eagerness to Learn / Learning Agility</li>
+                <li>Ability to Present Results / Insights</li>
+                <li>Persistence / Self-Discipline</li>
+            </ul>
+        </section>
+        <section class="content-section">
+            <h2>Hard Skills</h2>
+            <ul>
+                <li><strong>Programming & Libraries:</strong> Python (Data Analytics & ML), SQL, Pandas, NumPy</li>
+                <li><strong>Data Analysis & Modeling:</strong> EDA, Data Cleaning / Preprocessing, Feature Engineering & Data Encoding</li>
+                <li><strong>Machine Learning:</strong> Supervised ML, Model Evaluation & Validation (classification metrics, cross-validation)</li>
+                <li><strong>Deployment & CI/CD:</strong> Cloud Deployment (AWS), Web/App Deployment (Render), CI/CD (GitHub Actions), Automated Testing (pytest)</li>
+                <li><strong>Visualization & Insights:</strong> Data Visualization (matplotlib, seaborn), Statistical Reasoning / Data Insight Extraction, Translating Data into Business Recommendations</li>
+                <li><strong>Version Control:</strong> Git</li>
+            </ul>
+        </section>
+        <section class="content-section">
+            <h2>Main Project</h2>
+            <div class="project-card" id="mainProjectCard">
+                <h3>Telco Customer Churn Analysis</h3>
+                <p>Analysis of customer churn using Python, Pandas, and scikit-learn.</p>
+            </div>
+        </section>
+        <section class="content-section">
+            <h2>Other Projects</h2>
+            <a href="https://www.datacamp.com/datalab/w/c36e27c4-bcf4-4d3f-b0ee-1e015e773cda/edit" target="_blank" class="project-card">
+                <h3>Startegic HR Analytics on Employee Data</h3>
+                <p>SQL project that delivers an in-depth diagnostic analysis of historical employee data to provide actionable intelligence on workforce stability, compensation equity, and diversity.</p>
+            </a>
+            <a href="https://www.kaggle.com/code/gabriel2alves22/s-p500-stocks-python-analysis?scriptVersionId=262265261" target="_blank" class="project-card">
+                <h3>S&P 500 Stocks Python Analysis</h3>
+                <p>Analysis of the distribution of S&P 500 companies across U.S. states and analyze the concentration of dominant sectors within those regions.</p>
+            </a>
+        </section>
+        <section class="content-section">
+            <h2>Social Networks</h2>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/2gabriel-alves2/" target="_blank">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn">
+                </a>
+                <a href="https://www.datacamp.com/portfolio/gabrielda2work" target="_blank">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/datacamp.svg" alt="DataCamp">
+                </a>
+                <a href="https://github.com/gabrielalves-data" target="_blank">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="GitHub">
+                </a>
+                <a href="https://www.kaggle.com/gabriel2alves22" target="_blank">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/kaggle.svg" alt="Kaggle">
+                </a>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div id="popupOverlay">
+    <div id="popupBox">
+        <h3>Choose an Option</h3>
+
+        <a class="popup-btn" href="https://github.com/gabrielalves-data/Telco-Customer-Churn-Analysis" target="_blank">
+            GitHub Repository
+        </a>
+
+        <a class="popup-btn" href="https://telcochurnapp.gabrieldatascience.com/" target="_blank">
+            Live App
+        </a>
+
+        <div id="closePopup">Close</div>
+    </div>
+</div>
+
+<script>
+function renderTicks() {
+    const container = document.querySelector('.full-page-container');
+
+    document.querySelectorAll('.x-tick, .y-tick').forEach(t => t.remove());
+
+    const xStart = 36;
+    const xSpacing = 40;
+    const xTop = 198;
+    const xLabelStart = -3;
+
+    const availableWidth = container.clientWidth;
+    const xCount = Math.floor((availableWidth - xStart) / xSpacing);
+
+    for (let i = 1; i <= xCount; i++) {
+        const value = xLabelStart + (i - 1);
+        if (value == 0) continue;
+
+        const tick = document.createElement('div');
+        tick.className = 'x-tick';
+        tick.style.left = (xStart + (i - 1) * xSpacing) + 'px';
+        tick.style.top = xTop + 'px';
+        tick.textContent = value;
+        container.appendChild(tick);
+    }
+
+    const yStart = 33;
+    const ySpacing = 40;
+    const yLeft = 127;
+    const yLabelStart = 4;
+    
+    const availableHeight = container.clientHeight;
+    const yCount = Math.floor((availableHeight - yStart) / ySpacing);
+
+    for (let i = 1; i <= yCount; i++) {
+        const value = yLabelStart - (i - 1);
+        if (value == 0) continue;
+
+        const tick = document.createElement('div');
+        tick.className = 'y-tick';
+        tick.style.top = (yStart + (i - 1) * ySpacing) + 'px';
+        tick.style.left = yLeft + 'px';
+        tick.textContent = value;
+        container.appendChild(tick);
+    }
+}
+
+renderTicks();
+
+window.addEventListener('resize', renderTicks);
+
+const mainCard = document.getElementById("mainProjectCard");
+const popup = document.getElementById("popupOverlay");
+const closePopup = document.getElementById("closePopup");
+
+mainCard.addEventListener("click", () => {
+    popup.style.display = "flex";
+});
+
+closePopup.addEventListener("click", () => {
+    popup.style.display = "none";
+});
+
+popup.addEventListener("click", (e) => {
+    if (e.target === popup) popup.style.display = "none";
+});
+
+</script>
+
+</body>
+</html>

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Full Page Layout</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
     html, body {
         margin: 0;
@@ -43,6 +44,7 @@
         z-index: 15;
         box-sizing: border-box;
         gap: 20px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.8);
     }
 
     .header-container img {
@@ -62,8 +64,10 @@
     }
 
     .header-info .name {
-        font-size: 20px;
+        font-size: 26px;
         font-weight: bold;
+        color: #f5d76e;
+        text-shadow: 0 0 4px rgba(245, 215, 110, 0.8);
     }
 
     .header-info .role {
@@ -81,13 +85,29 @@
         color: #ccc
     }
 
+    .header-info > div {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .header-icon {
+        color: #1e1e1e;
+        filter: drop-shadow(0 0 3px #f5d76e);
+        font-size: 18px;
+        line-height: 1;
+        flex-shrink: 0;
+        width: 24px;
+        text-align: center;
+    }
+
     .x-axis {
         position: absolute;
         height: 2px;
         right: 30px;
         top: 199px;
         left: 0;
-        background-color: rgba(255, 2555, 255, 0.7);
+        background-color: #f5d76e;
         z-index: 10;
     }
 
@@ -118,7 +138,7 @@
         bottom: 20px;
         left: 159px;
         top: 0px;
-        background-color: rgba(255,255,255,0.7);
+        background-color: #f5d76e;
         z-index: 10;
     }
 
@@ -149,6 +169,7 @@
         font-size: 12px;
         font-family: monospace;
         z-index: 11;
+        cursor: default;
     }
 
     .x-tick {
@@ -207,16 +228,40 @@
     }
 
     .content-section h2 {
-        margin: 0 0 10px;
-        text-align: left;
-        font-size: 22px;
+        color: #f5f5f5;
+        text-shadow: 0 0 3px #f5f76e;
+        font-size: 24px;
+        margin-bottom: 15px;
+        border-bottom: 2px solid #f5d76e;
+        padding-bottom: 6px;
+        margin-bottom: 18px;
+        letter-spacing: 0.5px;
+        text-align: center;
+        display: block;
+        cursor: default;
+    }
+
+    .content-section h3, .content-section h4 {
+        color: #dcdcdc;
+        cursor: default;
     }
 
     .content-section p,
     .content-section ul {
+        color: #e0e0e0;
+        line-height: 1.65;
         text-align: left;
         margin: 0;
         padding-left: 15px;
+    }
+
+    .content-section p {
+        color: #e0e0e0;
+        line-height: 1.65;
+        text-align: justify;
+        margin: 0 0 15px 0;
+        padding-left: 0;
+        word-wrap: break-word;
     }
 
     .content-section ul {
@@ -227,14 +272,31 @@
         text-align: justify;
     }
 
-    .social-link {
-        color: #4fa2ff;
-        text-decoration: none;
-        font-weight: bold;
+    .content-section:nth-of-type(7) .project-card {
+        margin-bottom: 20px;
     }
 
-    .social-link:hover {
-        text-decoration: underline;
+    .content-section:nth-of-type(7) .project-card:last-child {
+        margin-bottom: 0;
+    }
+
+    .content-section:not(:last-child) {
+        border-bottom: 1px solid #444;
+        padding-bottom: 25px;
+        margin-bottom: 25px;
+    }
+
+    .certification-link {
+        color: #f5d76e;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.2s, text-shadow 0.2s;
+    }
+
+    .certification-link:hover {
+        color: #f7d56c;
+        text-shadow: 0 0 6px #f7d56c;
+        text-decoration: none;
     }
 
     h1 {
@@ -261,23 +323,19 @@
 
     .project-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 8px 15px rgba(0,0,0,0.7);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+        background-color: rgba(255, 255, 255, 0.05);
+        border-left: 3px solid #f5d76e;
     }
 
     .project-card h3 {
-        margin: 0 0 10px 0;
+        color: #f5f5f5;
+        font-size: 20px;
+        margin-bottom: 10px;
     }
 
     .project-card p {
         margin: 0;
-    }
-
-    .content-section:nth-of-type(7) .project-card {
-        margin-bottom: 20px;
-    }
-
-    .content-section:nth-of-type(7) .project-card:last-child {
-        margin-bottom: 0;
     }
 
     #popupOverlay {
@@ -303,8 +361,12 @@
     }
 
     #popupBox h3 {
+        font-size: 24px;
+        font-weight: bold;
         margin-bottom: 20px;
-        color: white;
+        color: #f5f5f5;
+        text-shadow: 0 0 3px #f5f76e;
+        cursor: default;
     }
 
     .popup-btn {
@@ -312,8 +374,7 @@
         width: 90%;
         margin: 10px auto;
         padding: 12px;
-        background: #ccc;
-        color: #1e1e1e;
+        color: #f5d56c;
         text-decoration: none;
         border-radius: 8px;
         font-weight: bold;
@@ -321,23 +382,36 @@
     }
 
     .popup-btn:hover {
-        background: #2978d9;
+        background: #f5d56c;
+        color: #1e1e1e;
+        transform: scale(1.05);
     }
 
-    #closePopup {
+    .close-btn {
+        color: #ff4c4c;
+        font-size: 12px;
+        width: 40%;
+        padding: 8px;
         margin-top: 10px;
+        text-decoration: none;
+        border-radius: 8px;
+        display: block;
+        text-align: center;
+        transition: 0.2s;
         cursor: pointer;
-        color: #ccc;
     }
 
-    #closePopup:hover {
-        color: white;
+    .close-btn:hover {
+        background: #ff4c4c;
+        color: #fff;
+        transform: scale(1.05);
     }
 
     .social-icons {
         display: flex;
-        gap: 15px;
+        gap: 50px;
         margin-top: 10px;
+        justify-content: center;
     }
 
     .social-icons a img {
@@ -348,8 +422,20 @@
     }
 
     .social-icons a:hover img {
+        filter: drop-shadow(0 0 4px #f5d76e);
         transform: scale(1.2);
     }
+
+    .footer {
+        position: absolute;
+        bottom: 20px;
+        left: 179px;
+        font-size: 14px;
+        color: #f5d76e;
+        text-shadow: 0 0 2px rgba(245, 215, 110, 0.5);
+        cursor: default;
+    }
+
 </style>
 </head>
 <body>
@@ -359,21 +445,31 @@
     <div class="y-axis"></div>
     <div class="zero-label">0</div>
     <div class="header-container">
-        <img src="scatter_photo_black_white.png" alt="Profile Photo">
+        <img src="scatter_gold_photo.png" alt="Profile Photo" class="profile-photo">
         <div class="header-info">
             <div class="name">Gabriel Alves</div>
-            <div class="role">Data Scientist Aspirant</div>
-            <div class="email">gabrielda2.work@gmail.com</div>
-            <div class="location">Portugal</div>
+            <div class="role">
+                <i class="fa-solid fa-briefcase header-icon"></i> 
+                Data Scientist Aspirant
+            </div>
+            <div class="email">
+                <i class="fa-solid fa-envelope header-icon"></i>
+                gabrielda2.work@gmail.com
+            </div>
+            <div class="location">
+                <i class="fa-solid fa-location-dot header-icon"></i>
+                Portugal
+            </div>
         </div>
     </div>
     <div class="content">
         <section class="content-section">
             <h2>About Me</h2>
-            <p>As a recent Informatics Engineering graduate, I have a strong foundation in programming and logical problem-solving.
-                My passion for data is backed by proven, hands-on experience in Python and SQL, demonstrated through many projects.
-                My expertise is validated by the Data Scientist Professional and Data Analyst Professional certifications from DataCamp.
-                I enjoy turning raw data into meaningful stories that support decision-making, and I'm always eager to learn more. My portfolio showcases my ability to solve business problems and deliver data-driven solutions. I'm actively seeking an internship or a junior role where I can grow as a Data Analyst or a Data Scientist.</p>
+            <p>As a recent Informatics Engineering graduate, I have a strong foundation in programming and logical problem-solving.</p>
+            <p>My passion for data is backed by proven, hands-on experience in Python and SQL, demonstrated through many projects.
+                My expertise is validated by the Data Scientist Professional and Data Analyst Professional certifications from DataCamp.</p>
+            <p>I enjoy turning raw data into meaningful stories that support decision-making, and I'm always eager to learn more. My portfolio showcases my ability to solve business problems and deliver data-driven solutions.</p>
+            <p>I'm actively seeking an internship or a junior role where I can grow as a Data Analyst or a Data Scientist.</p>
         </section>
         <section class="content-section">
             <h2>Education</h2>
@@ -382,14 +478,14 @@
         <section class="content-section">
             <h2>Certifications</h2>
             <ul>
-                <li><a href="Certifications/DS0025480056297.pdf" target="_blank" class="social-link">Data Scientist</a></li>
-                <li><a href="Certifications/DA0022758646289.pdf" target="_blank" class="social-link">Data Analyst</a></li>
-                <li><a href="Certifications/PDA0014701873545.pdf" target="_blank" class="social-link">Python Data Associate</a></li>
-                <li><a href="Certifications/SQA0013838684885.pdf" target="_blank" class="social-link">SQL Associate</a></li>
-                <li><a href="Certifications/AIF0020617151051.pdf" target="_blank" class="social-link">AI Fundamentals</a></li>
-                <li><a href="Certifications/DL0032660560639.pdf" target="_blank" class="social-link">Data Literacy</a></li>
-                <li><a href="Certifications/DSA0014659208749.pdf" target="_blank" class="social-link">Data Scientist Associate</a></li>
-                <li><a href="Certifications/DAA0012885715328.pdf" target="_blank" class="social-link">Data Analyst Associate</a></li>
+                <li><a href="Certifications/DS0025480056297.pdf" target="_blank" class="certification-link">Data Scientist</a></li>
+                <li><a href="Certifications/DA0022758646289.pdf" target="_blank" class="certification-link">Data Analyst</a></li>
+                <li><a href="Certifications/PDA0014701873545.pdf" target="_blank" class="certification-link">Python Data Associate</a></li>
+                <li><a href="Certifications/SQA0013838684885.pdf" target="_blank" class="certification-link">SQL Associate</a></li>
+                <li><a href="Certifications/AIF0020617151051.pdf" target="_blank" class="certification-link">AI Fundamentals</a></li>
+                <li><a href="Certifications/DL0032660560639.pdf" target="_blank" class="certification-link">Data Literacy</a></li>
+                <li><a href="Certifications/DSA0014659208749.pdf" target="_blank" class="certification-link">Data Scientist Associate</a></li>
+                <li><a href="Certifications/DAA0012885715328.pdf" target="_blank" class="certification-link">Data Analyst Associate</a></li>
         </section>
         <section class="content-section">
             <h2>Soft Skills</h2>
@@ -437,18 +533,19 @@
                 <a href="https://www.linkedin.com/in/2gabriel-alves2/" target="_blank">
                     <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn">
                 </a>
-                <a href="https://www.datacamp.com/portfolio/gabrielda2work" target="_blank">
-                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/datacamp.svg" alt="DataCamp">
-                </a>
                 <a href="https://github.com/gabrielalves-data" target="_blank">
                     <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="GitHub">
                 </a>
                 <a href="https://www.kaggle.com/gabriel2alves22" target="_blank">
                     <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/kaggle.svg" alt="Kaggle">
                 </a>
+                <a href="https://www.datacamp.com/portfolio/gabrielda2work" target="_blank">
+                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/datacamp.svg" alt="DataCamp">
+                </a>
             </div>
         </section>
     </div>
+    <div class="footer">© 2025 Gabriel Alves - Powered by Data</div>
 </div>
 
 <div id="popupOverlay">
@@ -463,7 +560,7 @@
             Live App
         </a>
 
-        <div id="closePopup">Close</div>
+        <div id="closePopup" class="popup-btn close-btn">Close</div>
     </div>
 </div>
 

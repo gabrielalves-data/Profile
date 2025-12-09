@@ -332,10 +332,15 @@
         color: #f5f5f5;
         font-size: 20px;
         margin-bottom: 10px;
+        cursor: pointer;
     }
 
     .project-card p {
         margin: 0;
+    }
+
+    .mainProjectCard {
+        margin-bottom: 20px;
     }
 
     #popupOverlay {
@@ -510,16 +515,34 @@
             </ul>
         </section>
         <section class="content-section">
-            <h2>Main Project</h2>
-            <div class="project-card" id="mainProjectCard">
+            <h2>Main Projects</h2>
+            <div class="project-card mainProjectCard"
+                data-github="https://github.com/gabrielalves-data/Telco-Customer-Churn-Analysis"
+                data-live="https://telcochurnapp.gabrieldatascience.com/">
                 <h3>Telco Customer Churn Analysis</h3>
-                <p>Analysis of customer churn using Python, Pandas, and scikit-learn.</p>
+                <p>
+                    Comprehensive data-driven analysis of customer churn for a telecom company.  
+                    Built with Python, Pandas, and scikit-learn to preprocess data, engineer features,  
+                    build predictive models, and evaluate churn-risk factors.  
+                    The project is deployed as a web application using Render, with AWS Cognito for authentication,  
+                    AWS WAF for security, and AWS S3 for storing machine learning models.
+                </p>
+            </div>
+            <div class="project-card mainProjectCard"
+                data-github="https://github.com/gabrielalves-data/Amazon-Product-Reviews-Sentiment-Analysis"
+                data-live="https://amazonreviewssentimentanalysis.streamlit.app/">
+                <h3>Amazon Product Reviews Sentiment Analysis</h3>
+                <p>Interactive Streamlit dashboard using neural networks to analyze Amazon product reviews, uncovering sentiments and underlying reasons. Explore insights by product, category, and time trends.</p>
             </div>
         </section>
         <section class="content-section">
             <h2>Other Projects</h2>
+            <a href="https://www.kaggle.com/code/gabriel2alves22/datacamp-competition-cleaning-data-and-the-skies" target="_blank" class="project-card">
+                <h3>DataCamp Competition: Cleaning Data and The Skies</h3>
+                <p>Participated in a DataCamp competition to clean and preprocess real-world messy data, then analyze it to extract insights and answer key business questions.</p>
+            </a>
             <a href="https://www.datacamp.com/datalab/w/c36e27c4-bcf4-4d3f-b0ee-1e015e773cda/edit" target="_blank" class="project-card">
-                <h3>Startegic HR Analytics on Employee Data</h3>
+                <h3>Strategic HR Analytics on Employee Data</h3>
                 <p>SQL project that delivers an in-depth diagnostic analysis of historical employee data to provide actionable intelligence on workforce stability, compensation equity, and diversity.</p>
             </a>
             <a href="https://www.kaggle.com/code/gabriel2alves22/s-p500-stocks-python-analysis?scriptVersionId=262265261" target="_blank" class="project-card">
@@ -550,13 +573,13 @@
 
 <div id="popupOverlay">
     <div id="popupBox">
-        <h3>Choose an Option</h3>
+        <h3 id="popupTitle">Choose an Option</h3>
 
-        <a class="popup-btn" href="https://github.com/gabrielalves-data/Telco-Customer-Churn-Analysis" target="_blank">
+        <a class="popup-btn" href="" target="_blank">
             GitHub Repository
         </a>
 
-        <a class="popup-btn" href="https://telcochurnapp.gabrieldatascience.com/" target="_blank">
+        <a class="popup-btn" href="" target="_blank">
             Live App
         </a>
 
@@ -615,13 +638,30 @@ renderTicks();
 
 window.addEventListener('resize', renderTicks);
 
-const mainCard = document.getElementById("mainProjectCard");
+const mainCards = document.querySelectorAll(".mainProjectCard");
 const popup = document.getElementById("popupOverlay");
 const closePopup = document.getElementById("closePopup");
+const popupTitle = document.getElementById("popupTitle");
+const githubBtn = popup.querySelectorAll(".popup-btn")[0];
+const liveBtn = popup.querySelectorAll(".popup-btn")[1];
 
-mainCard.addEventListener("click", () => {
-    popup.style.display = "flex";
-});
+mainCards.forEach(card => {
+    card.addEventListener("click", () => {
+        const githubLink = card.getAttribute("data-github");
+        const liveLink = card.getAttribute("data-live");
+        const projectTitle = card.querySelector("h3").textContent;
+
+        githubBtn.href = githubLink;
+        githubBtn.target = "_blank";
+
+        liveBtn.href = liveLink;
+        liveBtn.target = "_blank";
+
+        popupTitle.textContent = projectTitle;
+
+        popup.style.display = "flex";
+    });
+})
 
 closePopup.addEventListener("click", () => {
     popup.style.display = "none";

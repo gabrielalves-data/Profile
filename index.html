@@ -530,7 +530,8 @@
             <h2>Main Projects</h2>
             <div class="project-card mainProjectCard"
                 data-github="https://github.com/gabrielalves-data/Telco-Customer-Churn-Analysis"
-                data-live="https://telcochurnapp.gabrieldatascience.com/">
+                data-live="https://telcochurnapp.gabrieldatascience.com/"
+                data-video="https://youtu.be/q_E4YNjwJQA">
                 <h3>Customer Churn Data Pipeline (ETL, Feature Engineering & ML Deployment)</h3>
                 <p>
                     Designed and implemented an end-to-end data pipeline for customer churn prediction, covering data ingestion, preprocessing, feature engineering, model training, and deployment.
@@ -666,12 +667,22 @@ mainCards.forEach(card => {
     card.addEventListener("click", () => {
         const githubLink = card.getAttribute("data-github");
         const liveLink = card.getAttribute("data-live");
+        const videoLink = card.getAttribute("data-video");
         const projectTitle = card.querySelector("h3").textContent;
 
         githubBtn.href = githubLink;
         githubBtn.target = "_blank";
 
-        liveBtn.href = liveLink;
+        if (videoLink) {
+            liveBtn.textContent = "Video Demo";
+            liveBtn.href = videoLink;
+        }
+        
+        else {
+            liveBtn.textContent = "Live App";
+            liveBtn.href = liveLink;
+        }
+
         liveBtn.target = "_blank";
 
         popupTitle.textContent = projectTitle;

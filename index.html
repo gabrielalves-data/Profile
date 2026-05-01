@@ -3,719 +3,1514 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gabriel Alves</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<title>Gabriel Alves — Data Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
-    html, body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #282929;
-    }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    .full-page-container {
-        min-height: 100vh;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        width: 100%;
-        color: white;
-        padding: 20px;
-        box-sizing: border-box;
-        background-color: #1e1e1e;
-        background-image: 
-            linear-gradient(to right, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
-        background-size: 40px 40px;
-    }
+  :root {
+    --gold: #E8A830;
+    --gold-dim: #C48A1A;
+    --gold-bg: rgba(232,168,48,0.08);
+    --bg: #111210;
+    --bg-panel: #191A18;
+    --bg-card: #1E1F1C;
+    --bg-hover: #252621;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --text-primary: #F0EEE6;
+    --text-secondary: #888880;
+    --text-muted: #555550;
+    --teal: #2DC99A;
+    --teal-bg: rgba(45,201,154,0.10);
+    --blue: #4D9EE8;
+    --blue-bg: rgba(77,158,232,0.10);
+    --coral: #E87050;
+    --coral-bg: rgba(232,112,80,0.10);
+    --purple: #9D80DD;
+    --purple-bg: rgba(157,128,221,0.10);
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --sidebar-w: 220px;
+    --radius: 10px;
+    --radius-lg: 14px;
+    --transition: 0.18s ease;
+  }
 
-    .header-container {
-        position: absolute;
-        top: 10px;
-        left: 170px;
-        right: 50px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        background: rgba(0,0,0,0.7);
-        padding: 10px;
-        border-radius: 12px;
-        color: white;
-        z-index: 15;
-        box-sizing: border-box;
-        gap: 20px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.8);
-    }
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.6;
+    overflow: hidden;
+  }
 
-    .header-container img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        margin-bottom: 10px;
-        object-fit: cover;
-    }
+  /* ── Grid overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-    .header-info {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: left;
-        gap: 10px;
-    }
+  /* ── Layout ── */
+  .layout {
+    display: flex;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
 
-    .header-info .name {
-        font-size: 26px;
-        font-weight: bold;
-        color: #f5d76e;
-        text-shadow: 0 0 4px rgba(245, 215, 110, 0.8);
-    }
+  /* ── Sidebar ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    background: var(--bg-panel);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 28px 16px 24px;
+    overflow: hidden;
+    position: relative;
+  }
 
-    .header-info .role {
-        font-size: 16px;
-        color: #ccc;
-    }
+  .sidebar::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to top, var(--bg-panel), transparent);
+    pointer-events: none;
+  }
 
-    .header-info .email {
-        font-size: 16px;
-        color: #ccc;
-    }
+  .profile {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
 
-    .header-info .location {
-        font-size: 16px;
-        color: #ccc
-    }
+  .avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--gold-bg);
+    border: 1.5px solid var(--gold-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 12px;
+    letter-spacing: 0.03em;
+  }
 
-    .header-info > div {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
+  .profile-name {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
 
-    .header-icon {
-        color: #1e1e1e;
-        filter: drop-shadow(0 0 3px #f5d76e);
-        font-size: 18px;
-        line-height: 1;
-        flex-shrink: 0;
-        width: 24px;
-        text-align: center;
-    }
+  .profile-role {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
 
-    .x-axis {
-        position: absolute;
-        height: 2px;
-        right: 30px;
-        top: 199px;
-        left: 0;
-        background-color: #f5d76e;
-        z-index: 10;
-    }
+  .avail-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    background: var(--teal-bg);
+    border: 1px solid rgba(45,201,154,0.2);
+    color: var(--teal);
+    font-size: 10px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-family: var(--font-mono);
+  }
 
-    .x-axis::after {
-        content: '';
-        position: absolute;
-        right: -6px;
-        top: 50%;
-        transform: translateY(-50%);
-        border: 6px solid transparent;
-        border-left-color: rgba(255,255,255,0.7);
-    }
+  .avail-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--teal);
+    animation: pulse 2s ease infinite;
+  }
 
-    .x-axis::before {
-        content: 'x';
-        position: absolute;
-        right: -12px;
-        top: -50px;
-        transform: translateY(150%);
-        font-size: 16px;
-        font-weight: bold;
-        color: white;
-    }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
 
-    .y-axis {
-        position: absolute;
-        width: 2px;
-        bottom: 20px;
-        left: 159px;
-        top: 0px;
-        background-color: #f5d76e;
-        z-index: 10;
-    }
+  /* ── Nav ── */
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+  }
 
-    .y-axis::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 50%;
-        transform: translateX(-50%);
-        border: 6px solid transparent;
-        border-top-color: rgba(255,255,255,0.7);
-    }
+  .nav-label {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    padding: 0 8px;
+    margin: 4px 0 6px;
+    font-family: var(--font-mono);
+  }
 
-    .y-axis::before {
-        content: 'y';
-        position: absolute;
-        bottom: -12px;
-        right: 1px;
-        transform: translateX(-150%);
-        font-size: 16px;
-        font-weight: bold;
-        color: white;
-    }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background var(--transition), color var(--transition);
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-family: var(--font-mono);
+    border: 1px solid transparent;
+    user-select: none;
+  }
 
-    .x-tick, .y-tick {
-        position: absolute;
-        color: white;
-        font-size: 12px;
-        font-family: monospace;
-        z-index: 11;
-        cursor: default;
-    }
+  .nav-item:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+  }
 
-    .x-tick {
-        width: 8px;
-        text-align: center;
-    }
+  .nav-item.active {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-color: var(--border);
+  }
 
-    .y-tick {
-        width: 25px;
-        text-align: right;
-        padding-right: 4px;
-    }
+  .nav-pip {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
 
-    .x-tick::before {
-        content: '|';
-        display: block;
-        margin-bottom: 2px;
-    }
+  .pip-gold   { background: var(--gold); }
+  .pip-teal   { background: var(--teal); }
+  .pip-blue   { background: var(--blue); }
+  .pip-purple { background: var(--purple); }
+  .pip-coral  { background: var(--coral); }
+  .pip-gray   { background: var(--text-secondary); }
 
-    .y-tick::after {
-        content: '';
-        position: absolute;
-        right: -4px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 8px;
-        height: 1px;
-        background-color: white;
-    }
+  /* ── Sidebar socials ── */
+  .sidebar-footer {
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
 
-    .zero-label {
-        position: absolute;
-        top: 200px;
-        left: 144px;
-        transform: translate(-50%, 50%);
-        font-size: 16px;
-        font-weight: bold;
-        color: white;
-        z-index: 12;
-    }
+  .social-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
 
-    .content {
-        margin-top: 190px;
-        margin-left: 150px;
-        margin-right: 30px;
-        background: rgba(0,0,0,0.7);
-        padding: 25px;
-        border-radius: 12px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        gap: 25px;
-        box-sizing: border-box;
-        z-index: 15;
-        color: white;
-    }
+  .social-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 13px;
+    text-decoration: none;
+    transition: border-color var(--transition), color var(--transition), background var(--transition);
+  }
 
-    .content-section h2 {
-        color: #f5f5f5;
-        text-shadow: 0 0 3px #f5f76e;
-        font-size: 24px;
-        margin-bottom: 15px;
-        border-bottom: 2px solid #f5d76e;
-        padding-bottom: 6px;
-        margin-bottom: 18px;
-        letter-spacing: 0.5px;
-        text-align: center;
-        display: block;
-        cursor: default;
-    }
+  .social-btn:hover {
+    border-color: var(--gold-dim);
+    color: var(--gold);
+    background: var(--gold-bg);
+  }
 
-    .content-section h3, .content-section h4 {
-        color: #dcdcdc;
-        cursor: default;
-    }
+  /* ── Main ── */
+  .main {
+    flex: 1;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
 
-    .content-section p,
-    .content-section ul {
-        color: #e0e0e0;
-        line-height: 1.65;
-        text-align: left;
-        margin: 0;
-        padding-left: 15px;
-    }
+  .main::-webkit-scrollbar { width: 4px; }
+  .main::-webkit-scrollbar-track { background: transparent; }
+  .main::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
 
-    .content-section p {
-        color: #e0e0e0;
-        line-height: 1.65;
-        text-align: justify;
-        margin: 0 0 15px 0;
-        padding-left: 0;
-        word-wrap: break-word;
-    }
+  /* ── Topbar ── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(17,18,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    .content-section ul {
-        list-style: square;
-    }
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-    .content-section:first-of-type p {
-        text-align: justify;
-    }
+  .page-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
 
-    .content-section:nth-of-type(7) .project-card {
-        margin-bottom: 20px;
-    }
+  .topbar-crumb {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
 
-    .content-section:nth-of-type(7) .project-card:last-child {
-        margin-bottom: 0;
-    }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 5px 12px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    transition: all var(--transition);
+  }
 
-    .content-section:not(:last-child) {
-        border-bottom: 1px solid #444;
-        padding-bottom: 25px;
-        margin-bottom: 25px;
-    }
+  .contact-link:hover {
+    border-color: var(--gold-dim);
+    color: var(--gold);
+    background: var(--gold-bg);
+  }
 
-    .certification-link {
-        color: #f5d76e;
-        text-decoration: none;
-        font-weight: bold;
-        transition: color 0.2s, text-shadow 0.2s;
-    }
+  /* ── Page sections ── */
+  .page { display: none; padding: 32px; }
+  .page.active { display: block; }
 
-    .certification-link:hover {
-        color: #f7d56c;
-        text-shadow: 0 0 6px #f7d56c;
-        text-decoration: none;
-    }
+  /* ── Section ── */
+  .section { margin-bottom: 36px; }
 
-    h1 {
-        margin: 0 0 20px 0;
-    }
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    margin-bottom: 14px;
+    font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-    p {
-        margin: 0;
-    }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
 
-    .project-card {
-        background: rgba(255,255,255,0.1);
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        transition: transform 0.2s, box-shadow 0.2s;
-        cursor: pointer;
-        text-align: left;
-        color: white;
-        display: block;
-        max-width: 100%;
-        text-decoration: none;
-    }
+  /* ── Metrics ── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 36px;
+  }
 
-    .project-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.8);
-        background-color: rgba(255, 255, 255, 0.05);
-        border-left: 3px solid #f5d76e;
-    }
+  .metric-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px 16px;
+    text-align: left;
+    transition: border-color var(--transition);
+  }
 
-    .project-card h3 {
-        color: #f5f5f5;
-        font-size: 20px;
-        margin-bottom: 10px;
-        cursor: pointer;
-    }
+  .metric-card:hover { border-color: var(--border-hover); }
 
-    .project-card p {
-        margin: 0;
-    }
+  .metric-val {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
 
-    .mainProjectCard {
-        margin-bottom: 20px;
-    }
+  .metric-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
 
-    .status {
-        font-weight: 700;
-        color: #f5d56c;
-    }
+  /* ── Pipeline ── */
+  .pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 36px;
+  }
 
-    #popupOverlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.7);
-        display: none;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
+  .pipe-step {
+    flex: 1;
+    padding: 18px 14px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+    transition: background var(--transition);
+  }
 
-    #popupBox {
-        background: #1e1e1e;
-        padding: 25px;
-        border-radius: 12px;
-        text-align: center;
-        width: 300px;
-        box-shadow: 0 0 15px rgba(0,0,0,0.8);
-    }
+  .pipe-step:last-child { border-right: none; }
+  .pipe-step:hover { background: var(--bg-hover); }
 
-    #popupBox h3 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        color: #f5f5f5;
-        text-shadow: 0 0 3px #f5f76e;
-        cursor: default;
-    }
+  .pipe-step::after {
+    content: '›';
+    position: absolute;
+    right: -9px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 14px;
+    z-index: 2;
+  }
 
-    .popup-btn {
-        display: block;
-        width: 90%;
-        margin: 10px auto;
-        padding: 12px;
-        color: #f5d56c;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: bold;
-        transition: 0.2s;
-    }
+  .pipe-step:last-child::after { display: none; }
 
-    .popup-btn:hover {
-        background: #f5d56c;
-        color: #1e1e1e;
-        transform: scale(1.05);
-    }
+  .pipe-num {
+    font-size: 9px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    margin-bottom: 6px;
+  }
 
-    .close-btn {
-        color: #ff4c4c;
-        font-size: 12px;
-        width: 40%;
-        padding: 8px;
-        margin-top: 10px;
-        text-decoration: none;
-        border-radius: 8px;
-        display: block;
-        text-align: center;
-        transition: 0.2s;
-        cursor: pointer;
-    }
+  .pipe-icon {
+    font-size: 16px;
+    margin-bottom: 6px;
+    color: var(--gold);
+  }
 
-    .close-btn:hover {
-        background: #ff4c4c;
-        color: #fff;
-        transform: scale(1.05);
-    }
+  .pipe-name {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+  }
 
-    .social-icons {
-        display: flex;
-        gap: 50px;
-        margin-top: 10px;
-        justify-content: center;
-    }
+  .pipe-tools {
+    font-size: 10px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
 
-    .social-icons a img {
-        width: 32px;
-        height: 32px;
-        filter: invert(100%);
-        transition: transform 0.2s;
-    }
+  /* ── Project cards ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
 
-    .social-icons a:hover img {
-        filter: drop-shadow(0 0 4px #f5d76e);
-        transform: scale(1.2);
-    }
+  .proj-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: border-color var(--transition), background var(--transition), transform var(--transition);
+    text-decoration: none;
+    display: block;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+  }
 
-    .footer {
-        position: absolute;
-        bottom: 20px;
-        left: 179px;
-        font-size: 14px;
-        color: #f5d76e;
-        text-shadow: 0 0 2px rgba(245, 215, 110, 0.5);
-        cursor: default;
-    }
+  .proj-card:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-hover);
+    transform: translateY(-2px);
+  }
 
+  .proj-card.featured {
+    border-left: 2px solid var(--gold);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  }
+
+  .proj-card.featured::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: var(--gold-bg);
+    pointer-events: none;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .status-badge {
+    flex-shrink: 0;
+    font-size: 9px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .badge-active { background: var(--gold-bg); color: var(--gold); border: 1px solid rgba(232,168,48,0.25); }
+  .badge-live   { background: var(--teal-bg); color: var(--teal); border: 1px solid rgba(45,201,154,0.25); }
+  .badge-video   { background: var(--teal-bg); color: var(--teal); border: 1px solid rgba(24, 86, 67, 0.25); }
+  .badge-done   { background: rgba(255,255,255,0.05); color: var(--text-secondary); border: 1px solid var(--border); }
+
+  .card-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+  }
+
+  .card-links {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-link {
+    font-size: 10px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color var(--transition);
+    font-family: var(--font-mono);
+  }
+
+  .card-link:hover { color: var(--gold); }
+
+  /* ── Skills page ── */
+  .skills-group {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+
+  .skills-group-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .skills-group-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .icon-gold   { background: var(--gold-bg);   color: var(--gold); }
+  .icon-teal   { background: var(--teal-bg);   color: var(--teal); }
+  .icon-blue   { background: var(--blue-bg);   color: var(--blue); }
+  .icon-purple { background: var(--purple-bg); color: var(--purple); }
+  .icon-coral  { background: var(--coral-bg);  color: var(--coral); }
+
+  .skills-group-name {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .skills-tags {
+    padding: 14px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .skill-tag {
+    font-size: 11px;
+    padding: 4px 11px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    transition: border-color var(--transition), color var(--transition), background var(--transition);
+    cursor: default;
+  }
+
+  .skill-tag:hover {
+    border-color: var(--border-hover);
+    color: var(--text-primary);
+    background: var(--bg-hover);
+  }
+
+  /* ── Certs page ── */
+  .cert-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .cert-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: border-color var(--transition), background var(--transition);
+  }
+
+  .cert-item:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-hover);
+  }
+
+  .cert-left { display: flex; align-items: center; gap: 12px; }
+
+  .cert-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--gold-bg);
+    border: 1px solid rgba(232,168,48,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .cert-name {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .cert-issuer {
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  .cert-view {
+    font-size: 10px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 12px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    transition: all var(--transition);
+    font-family: var(--font-mono);
+    white-space: nowrap;
+  }
+
+  .cert-view:hover {
+    border-color: var(--gold-dim);
+    color: var(--gold);
+    background: var(--gold-bg);
+  }
+
+  /* ── About page ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .about-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+  }
+
+  .about-block h3 {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .about-block p {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .about-full {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+  }
+
+  .about-full p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 14px;
+  }
+
+  .about-full p:last-child { margin-bottom: 0; }
+
+  .about-full p strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  /* ── Soft skills ── */
+  .soft-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+
+  .soft-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .soft-item::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ── Education block ── */
+  .edu-block {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+
+  .edu-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--blue-bg);
+    border: 1px solid rgba(77,158,232,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue);
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .edu-name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+
+  .edu-detail {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* ── Popup overlay ── */
+  #popupOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  #popupBox {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-hover);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    width: 340px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  }
+
+  #popupTitle {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+
+  .popup-actions { display: flex; flex-direction: column; gap: 8px; }
+
+  .popup-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-size: 13px;
+    font-family: var(--font-mono);
+    transition: all var(--transition);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    background: var(--bg-card);
+  }
+
+  .popup-btn:hover {
+    border-color: var(--gold-dim);
+    background: var(--gold-bg);
+    color: var(--gold);
+  }
+
+  .popup-btn-close {
+    background: transparent;
+    color: var(--text-muted);
+    border-color: transparent;
+    justify-content: center;
+    font-size: 11px;
+  }
+
+  .popup-btn-close:hover {
+    background: rgba(255,255,255,0.04);
+    color: var(--text-secondary);
+    border-color: var(--border);
+  }
+
+  /* ── Scrollbar for main ── */
+  .main { scrollbar-gutter: stable; }
+
+  /* ── Animations ── */
+  .page.active .section { animation: fadeUp 0.3s ease both; }
+  .page.active .section:nth-child(2) { animation-delay: 0.05s; }
+  .page.active .section:nth-child(3) { animation-delay: 0.10s; }
+  .page.active .section:nth-child(4) { animation-delay: 0.15s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 </style>
 </head>
 <body>
 
-<div class="full-page-container">
-    <div class="x-axis"></div>
-    <div class="y-axis"></div>
-    <div class="zero-label">0</div>
-    <div class="header-container">
-        <img src="scatter_gold_photo.png" alt="Profile Photo" class="profile-photo">
-        <div class="header-info">
-            <div class="name">Gabriel Alves</div>
-            <div class="role">
-                <i class="fa-solid fa-briefcase header-icon"></i> 
-                Data Engineer | Building Scalable Data Pipelines & ML-Ready Systems
-            </div>
-            <div class="email">
-                <i class="fa-solid fa-envelope header-icon"></i>
-                gabrielda2.work@gmail.com
-            </div>
-            <div class="location">
-                <i class="fa-solid fa-location-dot header-icon"></i>
-                Portugal
-            </div>
+<div class="layout">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="profile">
+      <div class="avatar">GA</div>
+      <div class="profile-name">Gabriel Alves</div>
+      <div class="profile-role">Data Engineer</div>
+      <span class="avail-badge">
+        <span class="avail-dot"></span>
+        Open to roles
+      </span>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-label">Menu</div>
+      <div class="nav-item active" data-page="overview">
+        <span class="nav-pip pip-gold"></span> Overview
+      </div>
+      <div class="nav-item" data-page="projects">
+        <span class="nav-pip pip-teal"></span> Projects
+      </div>
+      <div class="nav-item" data-page="skills">
+        <span class="nav-pip pip-blue"></span> Skills
+      </div>
+      <div class="nav-item" data-page="certs">
+        <span class="nav-pip pip-purple"></span> Certifications
+      </div>
+      <div class="nav-item" data-page="about">
+        <span class="nav-pip pip-coral"></span> About
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="nav-label">Connect</div>
+      <div class="social-row">
+        <a class="social-btn" href="https://www.linkedin.com/in/2gabriel-alves2/" target="_blank" title="LinkedIn">
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+        <a class="social-btn" href="https://github.com/gabrielalves-data" target="_blank" title="GitHub">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a class="social-btn" href="https://www.kaggle.com/gabriel2alves22" target="_blank" title="Kaggle">
+          <i class="fa-brands fa-kaggle"></i>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <span class="page-title" id="topbarTitle">Overview</span>
+      </div>
+      <a class="contact-link" href="mailto:social@gabrieldaes.com">
+        <i class="fa-solid fa-envelope" style="font-size:11px"></i>
+        social@gabrieldaes.com
+      </a>
+    </div>
+
+    <!-- ── OVERVIEW PAGE ── -->
+    <div class="page active" id="page-overview">
+
+      <div class="section">
+        <div class="section-label">at a glance</div>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-val">8</div>
+            <div class="metric-label">Certifications</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">5+</div>
+            <div class="metric-label">Projects</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">2</div>
+            <div class="metric-label">Live deployments</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">PT</div>
+            <div class="metric-label">Based in Portugal</div>
+          </div>
         </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">data stack — end to end</div>
+        <div class="pipeline">
+          <div class="pipe-step">
+            <div class="pipe-num">01</div>
+            <div class="pipe-icon"><i class="fa-solid fa-arrow-right-to-bracket"></i></div>
+            <div class="pipe-name">Ingest</div>
+            <div class="pipe-tools">REST APIs<br>CSV<br>Batch I/O</div>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-num">02</div>
+            <div class="pipe-icon"><i class="fa-solid fa-gear"></i></div>
+            <div class="pipe-name">Transform</div>
+            <div class="pipe-tools">PySpark<br>Pandas · NumPy<br>SQL</div>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-num">03</div>
+            <div class="pipe-icon"><i class="fa-solid fa-diagram-project"></i></div>
+            <div class="pipe-name">Orchestrate</div>
+            <div class="pipe-tools">Apache Airflow<br>GitHub Actions<br>Logging</div>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-num">04</div>
+            <div class="pipe-icon"><i class="fa-solid fa-brain"></i></div>
+            <div class="pipe-name">ML-Ready</div>
+            <div class="pipe-tools">Feature Eng.<br>Model Eval<br>Prediction Svc</div>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-num">05</div>
+            <div class="pipe-icon"><i class="fa-solid fa-rocket"></i></div>
+            <div class="pipe-name">Deploy</div>
+            <div class="pipe-tools">Render<br>AWS Cognito<br>WAF</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">featured projects</div>
+        <div class="projects-grid">
+          <div class="proj-card featured"
+            data-github=""
+            data-live="">
+            <div class="card-header">
+              <div class="card-title">World Bank GDP Pipeline</div>
+              <span class="status-badge badge-active">In progress</span>
+            </div>
+            <div class="card-desc">End-to-end ETL on World Bank API data with S3 Hive-style partitioning, PySpark distributed transforms, and Airflow DAG orchestration.</div>
+            <div class="tag-row">
+              <span class="tag">PySpark</span>
+              <span class="tag">Airflow</span>
+              <span class="tag">AWS S3</span>
+              <span class="tag">Python</span>
+            </div>
+          </div>
+          <div class="proj-card"
+            data-github="https://github.com/gabrielalves-data/Telco-Customer-Churn-Analysis"
+            data-live="https://telcochurnapp.gabrieldatascience.com/"
+            data-video="https://youtu.be/q_E4YNjwJQA">
+            <div class="card-header">
+              <div class="card-title">Customer Churn Pipeline</div>
+              <span class="status-badge badge-video">Video Demo</span>
+            </div>
+            <div class="card-desc">ML-integrated ETL for churn prediction. Deployed on Render with AWS Cognito auth and WAF security layer.</div>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">AWS</span>
+              <span class="tag">ML</span>
+              <span class="tag">Render</span>
+            </div>
+          </div>
+          <div class="proj-card"
+            data-github="https://github.com/gabrielalves-data/Amazon-Product-Reviews-Sentiment-Analysis"
+            data-live="https://amazonreviewssentimentanalysis.streamlit.app/">
+            <div class="card-header">
+              <div class="card-title">NLP Sentiment Pipeline</div>
+              <span class="status-badge badge-live">Live</span>
+            </div>
+            <div class="card-desc">Text processing pipeline over product reviews driving a Streamlit dashboard with real-time filtering by category and time.</div>
+            <div class="tag-row">
+              <span class="tag">NLP</span>
+              <span class="tag">Streamlit</span>
+              <span class="tag">Neural nets</span>
+            </div>
+          </div>
+          <div class="proj-card"
+            data-github="https://www.datacamp.com/datalab/w/c36e27c4-bcf4-4d3f-b0ee-1e015e773cda/edit"
+            data-live="">
+            <div class="card-header">
+              <div class="card-title">Workforce SQL Analysis</div>
+              <span class="status-badge badge-done">Complete</span>
+            </div>
+            <div class="card-desc">Diagnostic analysis of employee data covering compensation equity, diversity metrics, and workforce stability insights.</div>
+            <div class="tag-row">
+              <span class="tag">SQL</span>
+              <span class="tag">DataCamp</span>
+              <span class="tag">Analytics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="content">
-        <section class="content-section">
-            <h2>About Me</h2>
-            <p>
-            I am a Data Engineer with a background in Informatics Engineering, focused on building scalable data pipelines and production-ready data systems.
-            </p>
-            <p>
-            I have hands-on experience designing ETL workflows, transforming large datasets, and preparing data for machine learning applications. I have built end-to-end pipelines covering data ingestion, transformation, modeling, and deployment.
-            </p>
-            <p>
-            Recently, I completed the Data Engineer Professional Certification, working with tools such as Airflow and logging systems, strengthening my understanding of workflow orchestration and pipeline monitoring.
-            </p>
-            <p>
-            I am particularly interested in building reliable, scalable, and ML-ready data systems, bridging Data Engineering and Machine Learning.
-            </p>
-            <p>
-            Currently seeking a junior Data Engineer role to contribute to data infrastructure and grow in distributed systems and orchestration.
-            </p>
-        </section>
-        <section class="content-section">
-            <h2>Education</h2>
-            <p>Bachelor's Degree in Informatics Engineering at ESTG-IPVC (Instituto Politécnico de Viana do Castelo)</p>
-        </section>
-        <section class="content-section">
-            <h2>Certifications</h2>
-            <ul>
-                <li><a href="Certifications/DE0014525280657.pdf" target="_blank" class="certification-link">Data Engineer</a></li>
-                <li><a href="Certifications/AEDS0018657828557.pdf" target="_blank" class="certification-link">AI Engineer for Data Scientists Associate</a></li>
-                <li><a href="Certifications/DS0025480056297.pdf" target="_blank" class="certification-link">Data Scientist</a></li>
-                <li><a href="Certifications/DA0022758646289.pdf" target="_blank" class="certification-link">Data Analyst</a></li>
-                <li><a href="Certifications/PDA0014701873545.pdf" target="_blank" class="certification-link">Python Data Associate</a></li>
-                <li><a href="Certifications/SQA0013838684885.pdf" target="_blank" class="certification-link">SQL Associate</a></li>
-                <li><a href="Certifications/AIF0020617151051.pdf" target="_blank" class="certification-link">AI Fundamentals</a></li>
-                <li><a href="Certifications/DL0032660560639.pdf" target="_blank" class="certification-link">Data Literacy</a></li>
-        </section>
-        <section class="content-section">
-            <h2>Soft Skills</h2>
-            <ul>
-                <li>Critical Thinking / Problem Solving</li>
-                <li>Analytical Mindset / Data-Driven Thinking</li>
-                <li>Attention to Detail</li>
-                <li>Curiosity & Eagerness to Learn / Learning Agility</li>
-                <li>Ability to Present Results / Insights</li>
-                <li>Persistence / Self-Discipline</li>
-            </ul>
-        </section>
-        <section class="content-section">
-            <h2>Hard Skills</h2>
-            <ul>
-                <li><strong>Programming & Data Processing:</strong> Python (ETL Pipelines), SQL, Pandas, NumPy</li>
-                <li><strong>Data Engineering:</strong> ETL Pipeline Design, Data Transformation, Data Cleaning, Batch Processing</li>
-                <li><strong>Data Modeling:</strong> Relational Databases, Schema Design, Data Structuring, Analytical Data Preparation</li>
-                <li><strong>Workflow Orchestration & Monitoring:</strong> Apache Airflow (fundamentals), Logging, Pipeline Reliability & Debugging</li>
-                <li><strong>Machine Learning Integration:</strong> Supervised Learning, Model Evaluation, ML-Ready Data Pipelines</li>
-                <li><strong>Cloud & Deployment:</strong> AWS (S3, Cognito, WAF), Application Deployment (Render), CI/CD (GitHub Actions)</li>
-                <li><strong>Data Analysis & Visualization:</strong> Exploratory Data Analysis (EDA), matplotlib, seaborn, Insight Communication</li>
-                <li><strong>Version Control & Testing:</strong> Git, pytest</li>
-            </ul>
-        </section>
-        <section class="content-section">
-            <h2>Main Projects</h2>
-            <div class="project-card mainProjectCard">
-                <h3><span class="status">In Progress</span>: World Bank GDP Data Pipeline (ETL, Data Transformation & Analytics)</h3>
-                <p>
-                    Designed and implemented a scalable end-to-end ETL pipeline for extracting, transforming, and analyzing World Bank GDP data at scale.
-                    Built modular extraction components with paginated API calls to the World Bank API, implementing intelligent error handling and logging for production reliability.
-                    Developed a multi-layer cloud architecture leveraging AWS S3 with Hive-style partitioning (raw/processed/analytics), organizing data for scalability and downstream analytics.
-                    Implemented PySpark-driven transformation workflows for large-scale data cleaning, type casting, null handling, and aggregation across millions of records.
-                    Created analytics layer with grouped aggregations, statistical computations (average GDP per country), and production-grade structured logging for debugging and monitoring.
-                    Orchestrating scheduled pipeline runs using Apache Airflow DAGs, enabling automated daily extraction, transformation, and analytics aggregation with dependency management and monitoring.
-                    Focus: building reliable, scalable ETL systems that move from raw data ingestion through transformation to actionable insights, with emphasis on cloud architecture, distributed computing, and workflow orchestration.
-                </p>
+
+    <!-- ── PROJECTS PAGE ── -->
+    <div class="page" id="page-projects">
+
+      <div class="section">
+        <div class="section-label">main projects</div>
+        <div class="projects-grid">
+          <div class="proj-card featured"
+            data-github=""
+            data-live="">
+            <div class="card-header">
+              <div class="card-title">World Bank GDP Pipeline</div>
+              <span class="status-badge badge-active">In progress</span>
             </div>
-            <div class="project-card mainProjectCard"
-                data-github="https://github.com/gabrielalves-data/Telco-Customer-Churn-Analysis"
-                data-live="https://telcochurnapp.gabrieldatascience.com/"
-                data-video="https://youtu.be/q_E4YNjwJQA">
-                <h3>Customer Churn Data Pipeline (ETL, Feature Engineering & ML Deployment)</h3>
-                <p>
-                    Designed and implemented an end-to-end data pipeline for customer churn prediction, covering data ingestion, preprocessing, feature engineering, model training, and deployment.
-                    Built reusable ETL components for data cleaning and transformation, including handling missing values, feature binning, and statistical aggregation.
-                    Integrated machine learning models into a production-ready workflow, including model evaluation, threshold optimization (profit-based), and prediction services.
-                    Deployed the system using Render, with AWS services (S3, Cognito, WAF) for storage, authentication, and security.
-                    Focus: building reliable, modular, and scalable data pipelines for ML-driven decision systems.
-                </p>
+            <div class="card-desc">Designed and built a scalable end-to-end ETL pipeline for processing World Bank GDP data. The project includes modular paginated API extraction with robust error handling and logging, a multi-layer Amazon Web Services S3 architecture using Hive-style partitioning, and Apache Spark transformations for cleaning, type casting, null handling, and large-scale aggregations. Automated daily workflows with Apache Airflow DAGs for scheduled extraction, transformation, and analytics, creating a reliable pipeline that moves from raw ingestion to actionable GDP insights.</div>
+            <div class="tag-row">
+              <span class="tag">PySpark</span>
+              <span class="tag">Airflow</span>
+              <span class="tag">AWS S3</span>
+              <span class="tag">Python</span>
+              <span class="tag">Logging</span>
             </div>
-            <div class="project-card mainProjectCard"
-                data-github="https://github.com/gabrielalves-data/Amazon-Product-Reviews-Sentiment-Analysis"
-                data-live="https://amazonreviewssentimentanalysis.streamlit.app/">
-                <h3>NLP Pipeline for Sentiment Analysis on Product Reviews</h3>
-                <p>
-                    Built a text processing pipeline to clean, transform, and analyze large-scale product review data.
-                    Implemented neural network models for sentiment classification and integrated them into an interactive Streamlit dashboard.
-                    Designed the pipeline to support dynamic filtering by product, category, and time, enabling real-time insight exploration.
-                    <strong>Impact:</strong> Demonstrates ability to design production-ready data pipelines that support business decision-making and ML-driven optimization.
-                </p>
+          </div>
+          <div class="proj-card"
+            data-github="https://github.com/gabrielalves-data/Telco-Customer-Churn-Analysis"
+            data-live="https://telcochurnapp.gabrieldatascience.com/"
+            data-video="https://youtu.be/q_E4YNjwJQA">
+            <div class="card-header">
+              <div class="card-title">Customer Churn Pipeline</div>
+              <span class="status-badge badge-video">Video Demo</span>
             </div>
-        </section>
-        <section class="content-section">
-            <h2>Other Projects</h2>
-            <a href="https://www.kaggle.com/code/gabriel2alves22/datacamp-competition-cleaning-data-and-the-skies" target="_blank" class="project-card">
-                <h3>DataCamp Competition: Cleaning Data and The Skies</h3>
-                <p>Participated in a DataCamp competition to clean and preprocess real-world messy data, then analyze it to extract insights and answer key business questions.</p>
-            </a>
-            <a href="https://www.datacamp.com/datalab/w/c36e27c4-bcf4-4d3f-b0ee-1e015e773cda/edit" target="_blank" class="project-card">
-                <h3>SQL-Based Workforce Data Analysis & Insights</h3>
-                <p>SQL project that delivers an in-depth diagnostic analysis of historical employee data to provide actionable intelligence on workforce stability, compensation equity, and diversity.</p>
-            </a>
-            <a href="https://www.kaggle.com/code/gabriel2alves22/s-p500-stocks-python-analysis?scriptVersionId=262265261" target="_blank" class="project-card">
-                <h3>Exploratory Data Analysis Pipeline for Financial Data</h3>
-                <p>Analysis of the distribution of S&P 500 companies across U.S. states and analyze the concentration of dominant sectors within those regions.</p>
-            </a>
-        </section>
-        <section class="content-section">
-            <h2>Social Networks</h2>
-            <div class="social-icons">
-                <a href="https://www.linkedin.com/in/2gabriel-alves2/" target="_blank">
-                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn">
-                </a>
-                <a href="https://github.com/gabrielalves-data" target="_blank">
-                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="GitHub">
-                </a>
-                <a href="https://www.kaggle.com/gabriel2alves22" target="_blank">
-                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/kaggle.svg" alt="Kaggle">
-                </a>
+            <div class="card-desc">Designed and implemented an end-to-end machine learning pipeline for customer churn prediction, covering data ingestion, preprocessing, feature engineering, model training, and deployment. Built reusable ETL components for data cleaning, missing-value handling, feature binning, and statistical aggregation, then integrated model evaluation and profit-based threshold optimization to improve business decision-making. Deployed the system on Render with Amazon Web Services services including S3, Cognito, and WAF for storage, authentication, and security, creating a reliable and scalable production-ready prediction workflow.</div>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">ETL</span>
+              <span class="tag">AWS</span>
+              <span class="tag">ML</span>
+              <span class="tag">Render</span>
             </div>
-        </section>
+          </div>
+          <div class="proj-card"
+            data-github="https://github.com/gabrielalves-data/Amazon-Product-Reviews-Sentiment-Analysis"
+            data-live="https://amazonreviewssentimentanalysis.streamlit.app/">
+            <div class="card-header">
+              <div class="card-title">NLP Sentiment Analysis Pipeline</div>
+              <span class="status-badge badge-live">Live</span>
+            </div>
+            <div class="card-desc">Built a text processing pipeline to clean, transform, and analyze large-scale product review data. Developed a neural network for sentiment classification and integrated it into an interactive Streamlit dashboard with dynamic filtering by product, category, and time. The project enables real-time exploration of review trends and demonstrates a production-ready workflow that combines scalable text processing with machine learning–driven business insights.</div>
+            <div class="tag-row">
+              <span class="tag">NLP</span>
+              <span class="tag">Streamlit</span>
+              <span class="tag">Neural nets</span>
+              <span class="tag">Python</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">other projects</div>
+        <div class="projects-grid">
+          <a class="proj-card" href="https://www.kaggle.com/code/gabriel2alves22/datacamp-competition-cleaning-data-and-the-skies" target="_blank">
+            <div class="card-header">
+              <div class="card-title">DataCamp: Cleaning Data & The Skies</div>
+              <span class="status-badge badge-done">Competition</span>
+            </div>
+            <div class="card-desc">Cleaned and preprocessed real-world messy flight data to extract business insights and answer key analytical questions.</div>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">Data Cleaning</span>
+              <span class="tag">EDA</span>
+            </div>
+          </a>
+          <a class="proj-card" href="https://www.datacamp.com/datalab/w/c36e27c4-bcf4-4d3f-b0ee-1e015e773cda/edit" target="_blank">
+            <div class="card-header">
+              <div class="card-title">SQL Workforce Data Analysis</div>
+              <span class="status-badge badge-done">Complete</span>
+            </div>
+            <div class="card-desc">In-depth SQL analysis delivering intelligence on workforce stability, compensation equity, and diversity from historical employee data.</div>
+            <div class="tag-row">
+              <span class="tag">SQL</span>
+              <span class="tag">Analytics</span>
+            </div>
+          </a>
+          <a class="proj-card" href="https://www.kaggle.com/code/gabriel2alves22/s-p500-stocks-python-analysis?scriptVersionId=262265261" target="_blank">
+            <div class="card-header">
+              <div class="card-title">S&P 500 Financial EDA</div>
+              <span class="status-badge badge-done">Complete</span>
+            </div>
+            <div class="card-desc">Analysis of S&P 500 company distribution across US states, with focus on sector concentration patterns within regions.</div>
+            <div class="tag-row">
+              <span class="tag">Python</span>
+              <span class="tag">Pandas</span>
+              <span class="tag">Matplotlib</span>
+              <span class="tag">Finance</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
     </div>
-    <div class="footer">© 2026 Gabriel Alves - Powered by Data</div>
+
+    <!-- ── SKILLS PAGE ── -->
+    <div class="page" id="page-skills">
+
+      <div class="section">
+        <div class="section-label">technical skills</div>
+
+        <div class="skills-group">
+          <div class="skills-group-header">
+            <div class="skills-group-icon icon-gold"><i class="fa-solid fa-pipe-section"></i></div>
+            <div class="skills-group-name">Data Engineering & ETL</div>
+          </div>
+          <div class="skills-tags">
+            <span class="skill-tag">ETL Pipeline Design</span>
+            <span class="skill-tag">Data Transformation</span>
+            <span class="skill-tag">Data Cleaning</span>
+            <span class="skill-tag">Batch Processing</span>
+            <span class="skill-tag">Schema Design</span>
+            <span class="skill-tag">Data Modeling</span>
+            <span class="skill-tag">Hive-style Partitioning</span>
+          </div>
+        </div>
+
+        <div class="skills-group">
+          <div class="skills-group-header">
+            <div class="skills-group-icon icon-teal"><i class="fa-brands fa-python"></i></div>
+            <div class="skills-group-name">Programming & Processing</div>
+          </div>
+          <div class="skills-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">PySpark</span>
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">NumPy</span>
+            <span class="skill-tag">pytest</span>
+          </div>
+        </div>
+
+        <div class="skills-group">
+          <div class="skills-group-header">
+            <div class="skills-group-icon icon-blue"><i class="fa-solid fa-diagram-project"></i></div>
+            <div class="skills-group-name">Orchestration & Monitoring</div>
+          </div>
+          <div class="skills-tags">
+            <span class="skill-tag">Apache Airflow</span>
+            <span class="skill-tag">DAG Design</span>
+            <span class="skill-tag">Structured Logging</span>
+            <span class="skill-tag">Pipeline Debugging</span>
+            <span class="skill-tag">GitHub Actions (CI/CD)</span>
+          </div>
+        </div>
+
+        <div class="skills-group">
+          <div class="skills-group-header">
+            <div class="skills-group-icon icon-purple"><i class="fa-brands fa-aws"></i></div>
+            <div class="skills-group-name">Cloud & Deployment</div>
+          </div>
+          <div class="skills-tags">
+            <span class="skill-tag">AWS S3</span>
+            <span class="skill-tag">AWS Cognito</span>
+            <span class="skill-tag">AWS WAF</span>
+            <span class="skill-tag">Render</span>
+            <span class="skill-tag">Git</span>
+          </div>
+        </div>
+
+        <div class="skills-group">
+          <div class="skills-group-header">
+            <div class="skills-group-icon icon-coral"><i class="fa-solid fa-brain"></i></div>
+            <div class="skills-group-name">ML Integration & Analysis</div>
+          </div>
+          <div class="skills-tags">
+            <span class="skill-tag">Supervised Learning</span>
+            <span class="skill-tag">Feature Engineering</span>
+            <span class="skill-tag">Model Evaluation</span>
+            <span class="skill-tag">ML-Ready Pipelines</span>
+            <span class="skill-tag">EDA</span>
+            <span class="skill-tag">Matplotlib</span>
+            <span class="skill-tag">Seaborn</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">soft skills</div>
+        <div class="about-full">
+          <ul class="soft-list">
+            <li class="soft-item">Critical Thinking & Problem Solving</li>
+            <li class="soft-item">Analytical Mindset & Data-Driven Thinking</li>
+            <li class="soft-item">Attention to Detail</li>
+            <li class="soft-item">Curiosity & Learning Agility</li>
+            <li class="soft-item">Ability to Present Results & Insights</li>
+            <li class="soft-item">Persistence & Self-Discipline</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── CERTIFICATIONS PAGE ── -->
+    <div class="page" id="page-certs">
+
+      <div class="section">
+        <div class="section-label">professional certifications</div>
+        <div class="cert-list">
+          <div class="cert-item">
+            <div class="cert-left">
+              <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
+              <div>
+                <div class="cert-name">Data Engineer Professional</div>
+                <div class="cert-issuer">DataCamp</div>
+              </div>
+            </div>
+            <a class="cert-view" href="Certifications/DE0014525280657.pdf" target="_blank">
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i> View PDF
+            </a>
+          </div>
+          <div class="cert-item">
+            <div class="cert-left">
+              <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
+              <div>
+                <div class="cert-name">AI Engineer for Data Scientists Associate</div>
+                <div class="cert-issuer">DataCamp</div>
+              </div>
+            </div>
+            <a class="cert-view" href="Certifications/AEDS0018657828557.pdf" target="_blank">
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i> View PDF
+            </a>
+          </div>
+          <div class="cert-item">
+            <div class="cert-left">
+              <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
+              <div>
+                <div class="cert-name">Data Scientist Professional</div>
+                <div class="cert-issuer">DataCamp</div>
+              </div>
+            </div>
+            <a class="cert-view" href="Certifications/DS0025480056297.pdf" target="_blank">
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i> View PDF
+            </a>
+          </div>
+          <div class="cert-item">
+            <div class="cert-left">
+              <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
+              <div>
+                <div class="cert-name">Data Analyst</div>
+                <div class="cert-issuer">DataCamp</div>
+              </div>
+            </div>
+            <a class="cert-view" href="Certifications/DA0022758646289.pdf" target="_blank">
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i> View PDF
+            </a>
+          </div>
+          <div class="cert-item">
+            <div class="cert-left">
+              <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
+              <div>
+                <div class="cert-name">Python Data Associate</div>
+                <div class="cert-issuer">DataCamp</div>
+              </div>
+            </div>
+            <a class="cert-view" href="Certifications/PDA0014701873545.pdf" target="_blank">
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i> View PDF
+            </a>
+          </div>
+          <div class="cert-item">
+            <div class="cert-left">
+              <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
+              <div>
+                <div class="cert-name">SQL Associate</div>
+                <div class="cert-issuer">DataCamp</div>
+              </div>
+            </div>
+            <a class="cert-view" href="Certifications/SQA0013838684885.pdf" target="_blank">
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i> View PDF
+            </a>
+          </div>
+          <div class="cert-item">
+            <div class="cert-left">
+              <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
+              <div>
+                <div class="cert-name">AI Fundamentals</div>
+                <div class="cert-issuer">DataCamp</div>
+              </div>
+            </div>
+            <a class="cert-view" href="Certifications/AIF0020617151051.pdf" target="_blank">
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i> View PDF
+            </a>
+          </div>
+          <div class="cert-item">
+            <div class="cert-left">
+              <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
+              <div>
+                <div class="cert-name">Data Literacy</div>
+                <div class="cert-issuer">DataCamp</div>
+              </div>
+            </div>
+            <a class="cert-view" href="Certifications/DL0032660560639.pdf" target="_blank">
+              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i> View PDF
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── ABOUT PAGE ── -->
+    <div class="page" id="page-about">
+
+      <div class="section">
+        <div class="section-label">quick info</div>
+        <div class="about-grid">
+          <div class="about-block">
+            <h3><i class="fa-solid fa-graduation-cap" style="color:var(--blue);font-size:13px"></i> Education</h3>
+            <div class="edu-block" style="padding:14px;margin:0;border:none;background:transparent;padding:0">
+              <div>
+                <div class="edu-name" style="font-size:13px">Bachelor's in Informatics Engineering</div>
+                <div class="edu-detail">ESTG-IPVC — Instituto Politécnico de Viana do Castelo</div>
+              </div>
+            </div>
+          </div>
+          <div class="about-block">
+            <h3><i class="fa-solid fa-location-dot" style="color:var(--coral);font-size:13px"></i> Location</h3>
+            <p>Based in Portugal. Open to remote positions and hybrid in the north of portugal opportunities.</p>
+          </div>
+          <div class="about-block">
+            <h3><i class="fa-solid fa-envelope" style="color:var(--gold);font-size:13px"></i> Contact</h3>
+            <p><a href="mailto:social@gabrieldaes.com" style="color:var(--gold);text-decoration:none">social@gabrieldaes.com</a></p>
+          </div>
+          <div class="about-block">
+            <h3><i class="fa-solid fa-bullseye" style="color:var(--teal);font-size:13px"></i> Looking for</h3>
+            <p>Junior Data Engineer role to contribute to data infrastructure and grow in distributed systems and orchestration.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">about me</div>
+        <div class="about-full">
+          <p>I am a <strong>Data Engineer</strong> with a background in Informatics Engineering, focused on building scalable data pipelines and production-ready data systems.</p>
+          <p>I have hands-on experience designing <strong>ETL workflows</strong>, transforming large datasets, and preparing data for machine learning applications. I have built end-to-end pipelines covering data ingestion, transformation, modeling, and deployment.</p>
+          <p>Recently, I completed the <strong>Data Engineer Professional Certification</strong>, working with tools such as Airflow and logging systems, strengthening my understanding of workflow orchestration and pipeline monitoring.</p>
+          <p>I am particularly interested in building reliable, scalable, and <strong>ML-ready data systems</strong>, bridging Data Engineering and Machine Learning.</p>
+          <p>Currently seeking a junior Data Engineer role to contribute to data infrastructure and grow in distributed systems and orchestration.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
 </div>
 
+<!-- ── Popup ── -->
 <div id="popupOverlay">
-    <div id="popupBox">
-        <h3 id="popupTitle">Choose an Option</h3>
-
-        <a class="popup-btn" href="" target="_blank">
-            GitHub Repository
-        </a>
-
-        <a class="popup-btn" href="" target="_blank">
-            Live App
-        </a>
-
-        <div id="closePopup" class="popup-btn close-btn">Close</div>
+  <div id="popupBox">
+    <div id="popupTitle">Project Links</div>
+    <div class="popup-actions">
+      <a class="popup-btn" id="popupGithub" href="" target="_blank">
+        <i class="fa-brands fa-github"></i> GitHub Repository
+      </a>
+      <a class="popup-btn" id="popupLive" href="" target="_blank">
+        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px"></i> Live App
+      </a>
+      <div class="popup-btn popup-btn-close" id="closePopup">Close</div>
     </div>
+  </div>
 </div>
 
 <script>
-function renderTicks() {
-    const container = document.querySelector('.full-page-container');
+  // ── Navigation ──
+  const navItems = document.querySelectorAll('.nav-item[data-page]');
+  const pages = document.querySelectorAll('.page');
+  const topbarTitle = document.getElementById('topbarTitle');
 
-    document.querySelectorAll('.x-tick, .y-tick').forEach(t => t.remove());
+  const pageTitles = {
+    overview: 'Overview',
+    projects: 'Projects',
+    skills: 'Skills',
+    certs: 'Certifications',
+    about: 'About'
+  };
 
-    const xStart = 36;
-    const xSpacing = 40;
-    const xTop = 198;
-    const xLabelStart = -3;
-
-    const availableWidth = container.clientWidth;
-    const xCount = Math.floor((availableWidth - xStart) / xSpacing);
-
-    for (let i = 1; i <= xCount; i++) {
-        const value = xLabelStart + (i - 1);
-        if (value == 0) continue;
-
-        const tick = document.createElement('div');
-        tick.className = 'x-tick';
-        tick.style.left = (xStart + (i - 1) * xSpacing) + 'px';
-        tick.style.top = xTop + 'px';
-        tick.textContent = value;
-        container.appendChild(tick);
-    }
-
-    const yStart = 33;
-    const ySpacing = 40;
-    const yLeft = 127;
-    const yLabelStart = 4;
-    
-    const availableHeight = container.clientHeight;
-    const yCount = Math.floor((availableHeight - yStart) / ySpacing);
-
-    for (let i = 1; i <= yCount; i++) {
-        const value = yLabelStart - (i - 1);
-        if (value == 0) continue;
-
-        const tick = document.createElement('div');
-        tick.className = 'y-tick';
-        tick.style.top = (yStart + (i - 1) * ySpacing) + 'px';
-        tick.style.left = yLeft + 'px';
-        tick.textContent = value;
-        container.appendChild(tick);
-    }
-}
-
-renderTicks();
-
-window.addEventListener('resize', renderTicks);
-
-const mainCards = document.querySelectorAll(".mainProjectCard");
-const popup = document.getElementById("popupOverlay");
-const closePopup = document.getElementById("closePopup");
-const popupTitle = document.getElementById("popupTitle");
-const githubBtn = popup.querySelectorAll(".popup-btn")[0];
-const liveBtn = popup.querySelectorAll(".popup-btn")[1];
-
-mainCards.forEach(card => {
-    card.addEventListener("click", () => {
-        const githubLink = card.getAttribute("data-github");
-        const liveLink = card.getAttribute("data-live");
-        const videoLink = card.getAttribute("data-video");
-        const projectTitle = card.querySelector("h3").textContent;
-
-        githubBtn.href = githubLink;
-        githubBtn.target = "_blank";
-
-        if (videoLink) {
-            liveBtn.textContent = "Video Demo";
-            liveBtn.href = videoLink;
-        }
-        
-        else {
-            liveBtn.textContent = "Live App";
-            liveBtn.href = liveLink;
-        }
-
-        liveBtn.target = "_blank";
-
-        popupTitle.textContent = projectTitle;
-
-        popup.style.display = "flex";
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = item.dataset.page;
+      navItems.forEach(n => n.classList.remove('active'));
+      item.classList.add('active');
+      pages.forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + target).classList.add('active');
+      document.querySelector('.main').scrollTo({ top: 0 });
+      topbarTitle.textContent = pageTitles[target] || target;
     });
-})
+  });
 
-closePopup.addEventListener("click", () => {
-    popup.style.display = "none";
-});
+  // ── Project card popup ──
+  const overlay = document.getElementById('popupOverlay');
+  const popupTitle = document.getElementById('popupTitle');
+  const popupGithub = document.getElementById('popupGithub');
+  const popupLive = document.getElementById('popupLive');
 
-popup.addEventListener("click", (e) => {
-    if (e.target === popup) popup.style.display = "none";
-});
+  document.querySelectorAll('.proj-card[data-github]').forEach(card => {
+    card.addEventListener('click', e => {
+      if (card.tagName === 'A') return;
+      const github = card.dataset.github;
+      const live = card.dataset.live;
+      const video = card.dataset.video;
+      const title = card.querySelector('.card-title').textContent;
 
+      popupTitle.textContent = title;
+      popupGithub.href = github || '#';
+      popupGithub.style.display = github ? 'flex' : 'none';
 
-fetch("https://telcochurnapp.gabrieldatascience.com/").catch(() => {});
+      if (video) {
+        popupLive.textContent = '';
+        popupLive.innerHTML = '<i class="fa-brands fa-youtube"></i> Video Demo';
+        popupLive.href = video;
+      } else {
+        popupLive.textContent = '';
+        popupLive.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px"></i> Live App';
+        popupLive.href = live || '#';
+      }
+      popupLive.style.display = (live || video) ? 'flex' : 'none';
+
+      overlay.style.display = 'flex';
+    });
+  });
+
+  document.getElementById('closePopup').addEventListener('click', () => {
+    overlay.style.display = 'none';
+  });
+
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.style.display = 'none';
+  });
+
+  // warmup
+  fetch("https://telcochurnapp.gabrieldatascience.com/").catch(() => {});
 </script>
-
 </body>
 </html>

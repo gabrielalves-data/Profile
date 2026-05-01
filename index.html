@@ -343,6 +343,11 @@
         margin-bottom: 20px;
     }
 
+    .status {
+        font-weight: 700;
+        color: #f5d56c;
+    }
+
     #popupOverlay {
         position: fixed;
         top: 0;
@@ -528,6 +533,18 @@
         </section>
         <section class="content-section">
             <h2>Main Projects</h2>
+            <div class="project-card mainProjectCard">
+                <h3><span class="status">In Progress</span>: World Bank GDP Data Pipeline (ETL, Data Transformation & Analytics)</h3>
+                <p>
+                    Designed and implemented a scalable end-to-end ETL pipeline for extracting, transforming, and analyzing World Bank GDP data at scale.
+                    Built modular extraction components with paginated API calls to the World Bank API, implementing intelligent error handling and logging for production reliability.
+                    Developed a multi-layer cloud architecture leveraging AWS S3 with Hive-style partitioning (raw/processed/analytics), organizing data for scalability and downstream analytics.
+                    Implemented PySpark-driven transformation workflows for large-scale data cleaning, type casting, null handling, and aggregation across millions of records.
+                    Created analytics layer with grouped aggregations, statistical computations (average GDP per country), and production-grade structured logging for debugging and monitoring.
+                    Orchestrating scheduled pipeline runs using Apache Airflow DAGs, enabling automated daily extraction, transformation, and analytics aggregation with dependency management and monitoring.
+                    Focus: building reliable, scalable ETL systems that move from raw data ingestion through transformation to actionable insights, with emphasis on cloud architecture, distributed computing, and workflow orchestration.
+                </p>
+            </div>
             <div class="project-card mainProjectCard"
                 data-github="https://github.com/gabrielalves-data/Telco-Customer-Churn-Analysis"
                 data-live="https://telcochurnapp.gabrieldatascience.com/"
@@ -579,9 +596,6 @@
                 </a>
                 <a href="https://www.kaggle.com/gabriel2alves22" target="_blank">
                     <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/kaggle.svg" alt="Kaggle">
-                </a>
-                <a href="https://www.datacamp.com/portfolio/gabrielda2work" target="_blank">
-                    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/datacamp.svg" alt="DataCamp">
                 </a>
             </div>
         </section>

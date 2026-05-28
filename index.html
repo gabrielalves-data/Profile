@@ -1407,11 +1407,11 @@ body::before {
           <div class="section-line"></div>
         </div>
         <div class="projects-grid">
-          <div class="proj-card featured" data-github="" data-live="">
+          <div class="proj-card featured" data-github="https://github.com/gabrielalves-data/World-Bank" data-dashboard="https://github.com/gabrielalves-data/World-Bank/blob/main/World%20Bank%20Dashboard.pdf">
             <div class="card-eyebrow">Data Engineering · In Progress</div>
             <div class="card-header">
               <div class="card-title">World Bank GDP Pipeline</div>
-              <span class="status-badge badge-active">Building</span>
+              <span class="status-badge badge-done">Complete</span>
             </div>
             <div class="card-desc">End-to-end ETL on World Bank API data with S3 Hive-style partitioning, PySpark distributed transforms, and Airflow DAG orchestration.</div>
             <div class="tag-row">
@@ -1478,11 +1478,11 @@ body::before {
           <div class="section-line"></div>
         </div>
         <div class="projects-grid">
-          <div class="proj-card featured" data-github="" data-live="">
+          <div class="proj-card featured" data-github="https://github.com/gabrielalves-data/World-Bank" data-dashboard="https://github.com/gabrielalves-data/World-Bank/blob/main/World%20Bank%20Dashboard.pdf">
             <div class="card-eyebrow">Data Engineering · In Progress</div>
             <div class="card-header">
               <div class="card-title">World Bank GDP Pipeline</div>
-              <span class="status-badge badge-active">Building</span>
+              <span class="status-badge badge-done">Complete</span>
             </div>
             <div class="card-desc">Designed and built a scalable end-to-end ETL pipeline for processing World Bank GDP data. Includes modular paginated API extraction with robust error handling and logging, a multi-layer AWS S3 architecture using Hive-style partitioning, and Apache Spark transformations for cleaning, type casting, null handling, and large-scale aggregations. Automated daily workflows with Apache Airflow DAGs.</div>
             <div class="tag-row">
@@ -1938,6 +1938,8 @@ body::before {
       const live = card.dataset.live;
       const video = card.dataset.video;
       const title = card.querySelector('.card-title').textContent;
+      const dashboard = card.dataset.dashboard;
+
 
       popupTitle.textContent = title;
       popupGithub.href = github || '#';
@@ -1947,12 +1949,18 @@ body::before {
         popupLiveIcon.innerHTML = '<i class="fa-brands fa-youtube"></i>';
         popupLiveLabel.textContent = 'Video Demo';
         popupLive.href = video;
+      
+      } else if (dashboard) {
+        popupLiveIcon.innerHTML = '<i class="fa-solid fa-chart-column" style="font-size:10px"></i>';
+        popupLiveLabel.textContent = 'Dashboard';
+        popupLive.href = dashboard || '#';
+
       } else {
         popupLiveIcon.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px"></i>';
         popupLiveLabel.textContent = 'Live App';
         popupLive.href = live || '#';
       }
-      popupLive.style.display = (live || video) ? 'flex' : 'none';
+      popupLive.style.display = (live || video || dashboard) ? 'flex' : 'none';
       overlay.style.display = 'flex';
     });
   });

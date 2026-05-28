@@ -1408,22 +1408,24 @@ body::before {
         </div>
         <div class="projects-grid">
           <div class="proj-card featured" data-github="https://github.com/gabrielalves-data/World-Bank" data-dashboard="https://github.com/gabrielalves-data/World-Bank/blob/main/World%20Bank%20Dashboard.pdf">
-            <div class="card-eyebrow">Data Engineering · In Progress</div>
+            <div class="card-eyebrow">Data Engineering · ELT</div>
             <div class="card-header">
               <div class="card-title">World Bank GDP Pipeline</div>
               <span class="status-badge badge-done">Complete</span>
             </div>
-            <div class="card-desc">End-to-end ETL on World Bank API data with S3 Hive-style partitioning, PySpark distributed transforms, and Airflow DAG orchestration.</div>
+            <div class="card-desc">End-to-end ELT pipeline on World Bank API data — paginated extraction, S3 Hive-style partitioning, PySpark transforms, Airflow orchestration, and a PostgreSQL star schema.</div>
             <div class="tag-row">
               <span class="tag">PySpark</span>
               <span class="tag">Airflow</span>
               <span class="tag">AWS S3</span>
+              <span class="tag">PostgreSQL</span>
               <span class="tag">Python</span>
+              <span class="tag">Docker</span>
             </div>
           </div>
 
           <div class="proj-card" data-github="https://github.com/gabrielalves-data/Telco-Customer-Churn-Analysis" data-live="https://telcochurnapp.gabrieldatascience.com/" data-video="https://youtu.be/q_E4YNjwJQA">
-            <div class="card-eyebrow">ML Pipeline · Video Demo</div>
+            <div class="card-eyebrow">ML Pipeline · Churn</div>
             <div class="card-header">
               <div class="card-title">Customer Churn Pipeline</div>
               <span class="status-badge badge-video">▶ Demo</span>
@@ -1438,7 +1440,7 @@ body::before {
           </div>
 
           <div class="proj-card" data-github="https://github.com/gabrielalves-data/Amazon-Product-Reviews-Sentiment-Analysis" data-live="https://amazonreviewssentimentanalysis.streamlit.app/">
-            <div class="card-eyebrow">NLP · Live</div>
+            <div class="card-eyebrow">NLP · Sentiment</div>
             <div class="card-header">
               <div class="card-title">NLP Sentiment Pipeline</div>
               <span class="status-badge badge-live">Live</span>
@@ -1479,23 +1481,24 @@ body::before {
         </div>
         <div class="projects-grid">
           <div class="proj-card featured" data-github="https://github.com/gabrielalves-data/World-Bank" data-dashboard="https://github.com/gabrielalves-data/World-Bank/blob/main/World%20Bank%20Dashboard.pdf">
-            <div class="card-eyebrow">Data Engineering · In Progress</div>
+            <div class="card-eyebrow">Data Engineering · ELT</div>
             <div class="card-header">
               <div class="card-title">World Bank GDP Pipeline</div>
               <span class="status-badge badge-done">Complete</span>
             </div>
-            <div class="card-desc">Designed and built a scalable end-to-end ETL pipeline for processing World Bank GDP data. Includes modular paginated API extraction with robust error handling and logging, a multi-layer AWS S3 architecture using Hive-style partitioning, and Apache Spark transformations for cleaning, type casting, null handling, and large-scale aggregations. Automated daily workflows with Apache Airflow DAGs.</div>
+            <div class="card-desc">Designed and built a scalable end-to-end ELT pipeline for processing World Bank GDP data. Features modular paginated API extraction with retry logic and structured logging, a multi-layer AWS S3 architecture using Hive-style partitioning, and Apache Spark transformations covering cleaning, type casting, null handling, and aggregations. Includes an automated data quality validation suite (null rates, value range checks, duplicate detection, row count drift) that gates the pipeline before writes. Processed data is loaded into a PostgreSQL star schema via a JDBC staging layer and idempotent SQL pipeline populating dim_country, dim_time, dim_indicator, and fact_gdp. Daily workflows orchestrated with Apache Airflow DAGs and containerised with Docker.</div>
             <div class="tag-row">
               <span class="tag">PySpark</span>
               <span class="tag">Airflow</span>
               <span class="tag">AWS S3</span>
+              <span class="tag">PostgreSQL</span>
               <span class="tag">Python</span>
-              <span class="tag">Logging</span>
+              <span class="tag">Docker</span>
             </div>
           </div>
 
           <div class="proj-card" data-github="https://github.com/gabrielalves-data/Telco-Customer-Churn-Analysis" data-live="https://telcochurnapp.gabrieldatascience.com/" data-video="https://youtu.be/q_E4YNjwJQA">
-            <div class="card-eyebrow">ML Pipeline · Video Demo</div>
+            <div class="card-eyebrow">ML Pipeline · Churn</div>
             <div class="card-header">
               <div class="card-title">Customer Churn Pipeline</div>
               <span class="status-badge badge-video">▶ Demo</span>
@@ -1511,7 +1514,7 @@ body::before {
           </div>
 
           <div class="proj-card" data-github="https://github.com/gabrielalves-data/Amazon-Product-Reviews-Sentiment-Analysis" data-live="https://amazonreviewssentimentanalysis.streamlit.app/">
-            <div class="card-eyebrow">NLP · Live</div>
+            <div class="card-eyebrow">NLP · Sentiment</div>
             <div class="card-header">
               <div class="card-title">NLP Sentiment Analysis Pipeline</div>
               <span class="status-badge badge-live">Live</span>

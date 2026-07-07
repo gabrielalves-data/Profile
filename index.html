@@ -232,11 +232,40 @@ body::before {
 }
 
 .profile-role {
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--text-2);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   font-family: var(--font-mono);
+  line-height: 1.55;
+  margin-bottom: 6px;
+}
+
+.profile-loc {
+  font-size: 9.5px;
+  color: var(--text-3);
+  font-family: var(--font-mono);
+  line-height: 1.55;
+}
+
+.cv-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 12px;
+  font-size: 10px;
+  color: var(--gold);
+  font-family: var(--font-mono);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border-gold);
+  padding-bottom: 2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.cv-link i { font-size: 9px; }
+
+.cv-link:hover {
+  color: var(--gold-bright);
+  border-color: var(--gold-bright);
 }
 
 /* Nav */
@@ -798,6 +827,65 @@ body::before {
   margin: 14px 0;
 }
 
+/* ────────────────── EXPERIENCE PAGE ────────────────── */
+.exp-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-top: 1px solid var(--border-gold);
+  border-radius: var(--r-lg);
+  padding: 22px 24px;
+}
+
+.exp-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.exp-role {
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: var(--text-1);
+}
+
+.exp-role span { color: var(--gold); font-style: italic; }
+
+.exp-meta {
+  font-size: 10.5px;
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  margin-bottom: 16px;
+}
+
+.exp-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exp-list li {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.62;
+}
+
+.exp-list li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  margin-top: 6px;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px var(--gold-glow);
+}
+
 /* ────────────────── SKILLS PAGE ────────────────── */
 .skills-layout {
   display: grid;
@@ -841,6 +929,7 @@ body::before {
 .ig-blue   { background: rgba(90,163,232,0.08); color: var(--blue); border: 1px solid rgba(90,163,232,0.2); }
 .ig-purple { background: rgba(157,128,221,0.08); color: var(--purple); border: 1px solid rgba(157,128,221,0.2); }
 .ig-coral  { background: rgba(232,112,80,0.08); color: var(--coral); border: 1px solid rgba(232,112,80,0.2); }
+.ig-pink   { background: rgba(232,90,160,0.08); color: #E85AA0; border: 1px solid rgba(232,90,160,0.2); }
 
 .skill-group-name {
   font-family: var(--font-display);
@@ -1227,7 +1316,7 @@ body::before {
         <div class="avatar-wrap">
           <div class="avatar">
             <img
-              src="avatars_v2\2_Integrated_Flow.png"
+              src="avatars_v2/2_Integrated_Flow.png"
               alt="Gabriel Alves"
               onerror="this.style.opacity='0'; this.parentElement.querySelector('.avatar-fallback').style.opacity='1';"
             >
@@ -1239,7 +1328,11 @@ body::before {
           </div>
         </div>
         <div class="profile-name">Gabriel <em>Alves</em></div>
-        <div class="profile-role">Data Engineer</div>
+        <div class="profile-role">Data Engineer · Software Engineer · Test Automation · AI-Assisted Dev</div>
+        <div class="profile-loc">Remote (worldwide) · Hybrid (North PT) · Viana do Castelo</div>
+        <a class="cv-link" href="cv/Gabriel_Alves_Resume.pdf" target="_blank" rel="noopener">
+          <i class="fa-solid fa-file-arrow-down"></i> View CV
+        </a>
       </div>
 
       <div class="nav-section-label">Navigation</div>
@@ -1249,6 +1342,11 @@ body::before {
           Overview
           <span class="nav-count">—</span>
         </div>
+        <div class="nav-item" data-page="experience">
+          <span class="nav-icon"><i class="fa-solid fa-briefcase"></i></span>
+          Experience
+          <span class="nav-count">1</span>
+        </div>
         <div class="nav-item" data-page="projects">
           <span class="nav-icon"><i class="fa-solid fa-diagram-project"></i></span>
           Projects
@@ -1257,12 +1355,12 @@ body::before {
         <div class="nav-item" data-page="skills">
           <span class="nav-icon"><i class="fa-solid fa-layer-group"></i></span>
           Skills
-          <span class="nav-count">26</span>
+          <span class="nav-count">32</span>
         </div>
         <div class="nav-item" data-page="certs">
           <span class="nav-icon"><i class="fa-solid fa-medal"></i></span>
           Certifications
-          <span class="nav-count">8</span>
+          <span class="nav-count">5</span>
         </div>
         <div class="nav-item" data-page="about">
           <span class="nav-icon"><i class="fa-solid fa-user"></i></span>
@@ -1318,9 +1416,9 @@ body::before {
         </div>
         <div class="metrics-grid">
           <div class="metric-card">
-            <div class="metric-num">8</div>
+            <div class="metric-num">5</div>
             <div class="metric-label">Certifications</div>
-            <div class="metric-card-bg">8</div>
+            <div class="metric-card-bg">5</div>
           </div>
           <div class="metric-card">
             <div class="metric-num">6+</div>
@@ -1413,7 +1511,7 @@ body::before {
               <div class="card-title">World Bank GDP Pipeline</div>
               <span class="status-badge badge-done">Complete</span>
             </div>
-            <div class="card-desc">End-to-end ELT pipeline on World Bank API data — paginated extraction, S3 Hive-style partitioning, PySpark transforms, Airflow orchestration, and a PostgreSQL star schema.</div>
+            <div class="card-desc">Paginated REST API → S3 (Hive partitioning) → PySpark → PostgreSQL star schema (JDBC) → Airflow → Docker.</div>
             <div class="tag-row">
               <span class="tag">PySpark</span>
               <span class="tag">Airflow</span>
@@ -1430,7 +1528,7 @@ body::before {
               <div class="card-title">Customer Churn Pipeline</div>
               <span class="status-badge badge-video">▶ Demo</span>
             </div>
-            <div class="card-desc">ML-integrated ETL for churn prediction. Deployed on Render with AWS Cognito auth and WAF security layer.</div>
+            <div class="card-desc">ML-integrated ETL, feature engineering, profit-based threshold optimization; deployed on AWS with Cognito auth.</div>
             <div class="tag-row">
               <span class="tag">Python</span>
               <span class="tag">AWS</span>
@@ -1445,7 +1543,7 @@ body::before {
               <div class="card-title">NLP Sentiment Pipeline</div>
               <span class="status-badge badge-live">Live</span>
             </div>
-            <div class="card-desc">Text processing pipeline over product reviews driving a Streamlit dashboard with real-time filtering by category and time.</div>
+            <div class="card-desc">Large-scale text processing pipeline with a Streamlit dashboard.</div>
             <div class="tag-row">
               <span class="tag">NLP</span>
               <span class="tag">Streamlit</span>
@@ -1459,13 +1557,37 @@ body::before {
               <div class="card-title">Workforce SQL Analysis</div>
               <span class="status-badge badge-done">Complete</span>
             </div>
-            <div class="card-desc">Diagnostic analysis of employee data covering compensation equity, diversity metrics, and workforce stability insights.</div>
+            <div class="card-desc">CTE-first analytical SQL surfacing workforce metrics.</div>
             <div class="tag-row">
               <span class="tag">SQL</span>
               <span class="tag">DataCamp</span>
               <span class="tag">Analytics</span>
             </div>
           </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══════════ EXPERIENCE PAGE ══════════ -->
+    <div class="page" id="page-experience">
+
+      <div class="section stagger">
+        <div class="section-header">
+          <span class="section-label">Work Experience</span>
+          <div class="section-line"></div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-role">Software Engineering Intern <span>— Valuedate.io</span></div>
+            <span class="status-badge badge-active">Current</span>
+          </div>
+          <div class="exp-meta">Jun 2026 – Present · Viana do Castelo, Portugal</div>
+          <ul class="exp-list">
+            <li>Fixed a production bug in an inherited, undocumented Django codebase (no DB access), shipped with Pytest coverage.</li>
+            <li>Introduced Playwright to the company: built an E2E test suite from scratch with reusable helpers, fixing additional bugs surfaced by test failures.</li>
+            <li>4 production PRs merged in first 3 weeks, each reviewed and approved by the engineering lead.</li>
+          </ul>
         </div>
       </div>
 
@@ -1486,7 +1608,7 @@ body::before {
               <div class="card-title">World Bank GDP Pipeline</div>
               <span class="status-badge badge-done">Complete</span>
             </div>
-            <div class="card-desc">Designed and built a scalable end-to-end ELT pipeline for processing World Bank GDP data. Features modular paginated API extraction with retry logic and structured logging, a multi-layer AWS S3 architecture using Hive-style partitioning, and Apache Spark transformations covering cleaning, type casting, null handling, and aggregations. Includes an automated data quality validation suite (null rates, value range checks, duplicate detection, row count drift) that gates the pipeline before writes. Processed data is loaded into a PostgreSQL star schema via a JDBC staging layer and idempotent SQL pipeline populating dim_country, dim_time, dim_indicator, and fact_gdp. Daily workflows orchestrated with Apache Airflow DAGs and containerised with Docker.</div>
+            <div class="card-desc">Paginated REST API → S3 (Hive partitioning) → PySpark → PostgreSQL star schema (JDBC) → Airflow → Docker.</div>
             <div class="tag-row">
               <span class="tag">PySpark</span>
               <span class="tag">Airflow</span>
@@ -1503,7 +1625,7 @@ body::before {
               <div class="card-title">Customer Churn Pipeline</div>
               <span class="status-badge badge-video">▶ Demo</span>
             </div>
-            <div class="card-desc">End-to-end machine learning pipeline for customer churn prediction, covering data ingestion, preprocessing, feature engineering, model training, and deployment. Built reusable ETL components and integrated model evaluation with profit-based threshold optimization. Deployed on Render with AWS S3, Cognito, and WAF.</div>
+            <div class="card-desc">ML-integrated ETL, feature engineering, profit-based threshold optimization; deployed on AWS with Cognito auth.</div>
             <div class="tag-row">
               <span class="tag">Python</span>
               <span class="tag">ETL</span>
@@ -1519,7 +1641,7 @@ body::before {
               <div class="card-title">NLP Sentiment Analysis Pipeline</div>
               <span class="status-badge badge-live">Live</span>
             </div>
-            <div class="card-desc">Text processing pipeline to clean, transform, and analyze large-scale product review data. Neural network for sentiment classification integrated into a Streamlit dashboard with dynamic filtering by product, category, and time. Production-ready workflow combining scalable text processing with ML-driven business insights.</div>
+            <div class="card-desc">Large-scale text processing pipeline with a Streamlit dashboard.</div>
             <div class="tag-row">
               <span class="tag">NLP</span>
               <span class="tag">Streamlit</span>
@@ -1556,7 +1678,7 @@ body::before {
               <div class="card-title">SQL Workforce Data Analysis</div>
               <span class="status-badge badge-done">Complete</span>
             </div>
-            <div class="card-desc">In-depth SQL analysis delivering intelligence on workforce stability, compensation equity, and diversity from historical employee data.</div>
+            <div class="card-desc">CTE-first analytical SQL surfacing workforce metrics.</div>
             <div class="tag-row">
               <span class="tag">SQL</span>
               <span class="tag">Analytics</span>
@@ -1593,81 +1715,93 @@ body::before {
         <div class="skills-layout">
           <div class="skill-group">
             <div class="skill-group-header">
-              <div class="skill-group-icon ig-gold"><i class="fa-solid fa-gears"></i></div>
-              <div class="skill-group-name">Data Engineering & ETL</div>
-              <span class="skill-group-count">7 skills</span>
-            </div>
-            <div class="skill-tags">
-              <span class="skill-tag">ETL Pipeline Design</span>
-              <span class="skill-tag">Data Transformation</span>
-              <span class="skill-tag">Data Cleaning</span>
-              <span class="skill-tag">Batch Processing</span>
-              <span class="skill-tag">Schema Design</span>
-              <span class="skill-tag">Data Modeling</span>
-              <span class="skill-tag">Hive-style Partitioning</span>
-            </div>
-          </div>
-
-          <div class="skill-group">
-            <div class="skill-group-header">
-              <div class="skill-group-icon ig-teal"><i class="fa-brands fa-python"></i></div>
-              <div class="skill-group-name">Programming & Processing</div>
-              <span class="skill-group-count">6 skills</span>
+              <div class="skill-group-icon ig-teal"><i class="fa-solid fa-code"></i></div>
+              <div class="skill-group-name">Languages</div>
+              <span class="skill-group-count">3 skills</span>
             </div>
             <div class="skill-tags">
               <span class="skill-tag">Python</span>
               <span class="skill-tag">SQL</span>
+              <span class="skill-tag">Java</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-header">
+              <div class="skill-group-icon ig-gold"><i class="fa-solid fa-gears"></i></div>
+              <div class="skill-group-name">Data Engineering</div>
+              <span class="skill-group-count">6 skills</span>
+            </div>
+            <div class="skill-tags">
               <span class="skill-tag">PySpark</span>
-              <span class="skill-tag">Pandas</span>
-              <span class="skill-tag">NumPy</span>
-              <span class="skill-tag">pytest</span>
+              <span class="skill-tag">Airflow</span>
+              <span class="skill-tag">dbt</span>
+              <span class="skill-tag">ETL/ELT Design</span>
+              <span class="skill-tag">Star-Schema Modeling</span>
+              <span class="skill-tag">Data Quality Validation</span>
             </div>
           </div>
 
           <div class="skill-group">
             <div class="skill-group-header">
-              <div class="skill-group-icon ig-blue"><i class="fa-solid fa-circle-nodes"></i></div>
-              <div class="skill-group-name">Orchestration & Monitoring</div>
+              <div class="skill-group-icon ig-blue"><i class="fa-solid fa-server"></i></div>
+              <div class="skill-group-name">Backend / SWE</div>
               <span class="skill-group-count">5 skills</span>
             </div>
             <div class="skill-tags">
-              <span class="skill-tag">Apache Airflow</span>
-              <span class="skill-tag">DAG Design</span>
-              <span class="skill-tag">Structured Logging</span>
-              <span class="skill-tag">Pipeline Debugging</span>
-              <span class="skill-tag">GitHub Actions (CI/CD)</span>
+              <span class="skill-tag">Django</span>
+              <span class="skill-tag">REST APIs</span>
+              <span class="skill-tag">PostgreSQL</span>
+              <span class="skill-tag">JDBC</span>
+              <span class="skill-tag">Git/PR-Based Review</span>
             </div>
           </div>
 
           <div class="skill-group">
             <div class="skill-group-header">
-              <div class="skill-group-icon ig-purple"><i class="fa-brands fa-aws"></i></div>
-              <div class="skill-group-name">Cloud & Deployment</div>
-              <span class="skill-group-count">5 skills</span>
+              <div class="skill-group-icon ig-purple"><i class="fa-solid fa-vial"></i></div>
+              <div class="skill-group-name">Testing / QA</div>
+              <span class="skill-group-count">3 skills</span>
             </div>
             <div class="skill-tags">
-              <span class="skill-tag">AWS S3</span>
-              <span class="skill-tag">AWS Cognito</span>
-              <span class="skill-tag">AWS WAF</span>
-              <span class="skill-tag">Render</span>
-              <span class="skill-tag">Git</span>
+              <span class="skill-tag">Pytest</span>
+              <span class="skill-tag">Playwright (Suite Architecture + Reusable Helpers)</span>
+              <span class="skill-tag">E2E Automation</span>
             </div>
           </div>
 
           <div class="skill-group">
             <div class="skill-group-header">
               <div class="skill-group-icon ig-coral"><i class="fa-solid fa-brain"></i></div>
-              <div class="skill-group-name">ML Integration & Analysis</div>
+              <div class="skill-group-name">AI / ML Tooling</div>
+              <span class="skill-group-count">8 skills</span>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">Copilot</span>
+              <span class="skill-tag">Claude</span>
+              <span class="skill-tag">Local LLMs (Dev)</span>
+              <span class="skill-tag">GPT</span>
+              <span class="skill-tag">Gemini</span>
+              <span class="skill-tag">Perplexity (Research/Chat)</span>
+              <span class="skill-tag">Feature Engineering</span>
+              <span class="skill-tag">Model Evaluation</span>
+            </div>
+          </div>
+
+          <div class="skill-group">
+            <div class="skill-group-header">
+              <div class="skill-group-icon ig-pink"><i class="fa-brands fa-aws"></i></div>
+              <div class="skill-group-name">Cloud & DevOps</div>
               <span class="skill-group-count">7 skills</span>
             </div>
             <div class="skill-tags">
-              <span class="skill-tag">Supervised Learning</span>
-              <span class="skill-tag">Feature Engineering</span>
-              <span class="skill-tag">Model Evaluation</span>
-              <span class="skill-tag">ML-Ready Pipelines</span>
-              <span class="skill-tag">EDA</span>
-              <span class="skill-tag">Matplotlib</span>
-              <span class="skill-tag">Seaborn</span>
+              <span class="skill-tag">AWS S3</span>
+              <span class="skill-tag">AWS IAM</span>
+              <span class="skill-tag">AWS Cognito</span>
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">CI/CD</span>
+              <span class="skill-tag">Kubernetes (Learning)</span>
+              <span class="skill-tag">Terraform (Learning)</span>
             </div>
           </div>
         </div>
@@ -1743,19 +1877,6 @@ body::before {
               <div class="cert-num">04</div>
               <div class="cert-divider"></div>
               <div>
-                <div class="cert-name">Data Analyst</div>
-                <div class="cert-meta">DataCamp</div>
-              </div>
-            </div>
-            <a class="cert-view" href="Certifications/DA0022758646289.pdf" target="_blank">
-              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i> View PDF
-            </a>
-          </div>
-          <div class="cert-item">
-            <div class="cert-left">
-              <div class="cert-num">05</div>
-              <div class="cert-divider"></div>
-              <div>
                 <div class="cert-name">Python Data Associate</div>
                 <div class="cert-meta">DataCamp</div>
               </div>
@@ -1766,7 +1887,7 @@ body::before {
           </div>
           <div class="cert-item">
             <div class="cert-left">
-              <div class="cert-num">06</div>
+              <div class="cert-num">05</div>
               <div class="cert-divider"></div>
               <div>
                 <div class="cert-name">SQL Associate</div>
@@ -1774,32 +1895,6 @@ body::before {
               </div>
             </div>
             <a class="cert-view" href="Certifications/SQA0013838684885.pdf" target="_blank">
-              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i> View PDF
-            </a>
-          </div>
-          <div class="cert-item">
-            <div class="cert-left">
-              <div class="cert-num">07</div>
-              <div class="cert-divider"></div>
-              <div>
-                <div class="cert-name">AI Fundamentals</div>
-                <div class="cert-meta">DataCamp</div>
-              </div>
-            </div>
-            <a class="cert-view" href="Certifications/AIF0020617151051.pdf" target="_blank">
-              <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i> View PDF
-            </a>
-          </div>
-          <div class="cert-item">
-            <div class="cert-left">
-              <div class="cert-num">08</div>
-              <div class="cert-divider"></div>
-              <div>
-                <div class="cert-name">Data Literacy</div>
-                <div class="cert-meta">DataCamp</div>
-              </div>
-            </div>
-            <a class="cert-view" href="Certifications/DL0032660560639.pdf" target="_blank">
               <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:9px"></i> View PDF
             </a>
           </div>
@@ -1825,7 +1920,7 @@ body::before {
             <p>I am a <strong>Data Engineer</strong> with a background in Informatics Engineering, focused on building scalable data pipelines and production-ready data systems.</p>
             <p>I have hands-on experience designing <strong>ETL workflows</strong>, transforming large datasets, and preparing data for machine learning applications. I have built end-to-end pipelines covering data ingestion, transformation, modeling, and deployment.</p>
             <p>Recently, I completed the <strong>Data Engineer Professional Certification</strong>, working with tools such as Airflow and logging systems, strengthening my understanding of workflow orchestration and pipeline monitoring.</p>
-            <p>Currently seeking a <strong>junior Data Engineer role</strong> to contribute to data infrastructure and grow in distributed systems and orchestration.</p>
+            <p>Currently working as a <strong>Software Engineering Intern</strong> at Valuedate.io, and open to <strong>Data Engineer, Software Engineer, Test Automation, and AI Engineering</strong> roles — remote worldwide or hybrid in North Portugal.</p>
           </div>
         </div>
       </div>
@@ -1841,16 +1936,16 @@ body::before {
               <i class="fa-solid fa-graduation-cap" style="color:var(--blue)"></i>
               Education
             </div>
-            <div class="about-block-val">Bachelor's in Informatics Engineering</div>
-            <div class="about-block-sub">ESTG-IPVC · Instituto Politécnico de Viana do Castelo</div>
+            <div class="about-block-val">Bachelor in Informatics Engineering</div>
+            <div class="about-block-sub">ESTG, Instituto Politécnico de Viana do Castelo</div>
           </div>
           <div class="about-block">
             <div class="about-block-label">
               <i class="fa-solid fa-location-dot" style="color:var(--coral)"></i>
               Location
             </div>
-            <div class="about-block-val">Portugal</div>
-            <div class="about-block-sub">Open to remote · Hybrid (north of Portugal)</div>
+            <div class="about-block-val">Viana do Castelo, Portugal</div>
+            <div class="about-block-sub">Open to remote (worldwide) · Hybrid (North Portugal)</div>
           </div>
           <div class="about-block">
             <div class="about-block-label">
@@ -1864,11 +1959,13 @@ body::before {
           </div>
           <div class="about-block">
             <div class="about-block-label">
-              <i class="fa-solid fa-bullseye" style="color:var(--teal)"></i>
-              Looking for
+              <i class="fa-solid fa-file-arrow-down" style="color:var(--teal)"></i>
+              Resume
             </div>
-            <div class="about-block-val">Junior Data Engineer</div>
-            <div class="about-block-sub">Data infrastructure · Distributed systems · Orchestration</div>
+            <div class="about-block-val">
+              <a href="cv/Gabriel_Alves_Resume.pdf" target="_blank" rel="noopener">View CV</a>
+            </div>
+            <div class="about-block-sub">Opens in a new tab</div>
           </div>
         </div>
       </div>
@@ -1907,6 +2004,7 @@ body::before {
 
   const pageTitles = {
     overview: 'Overview',
+    experience: 'Experience',
     projects: 'Projects',
     skills: 'Skills',
     certs: 'Certifications',
